@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S11 - 高官博士論文抄襲碩士學弟 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S11">
+  <header>
+    <span class="badge" id="scenario-id">S11</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>圖書館四樓靠窗的座位，午後的陽光穿過灰塵在桌面形成一道光柱。你的螢幕上是一篇博士論文PDF——你反覆確認了三遍，這是你的碩士論文，一字不漏地被貼在比你早畢業的學長名下。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S11',
+  role: 'student',
+  difficulty: '中級',
+  newsSource: [
+    { name: '鏡新聞', url: 'https://www.mnews.tw/story/mm-20260513-54inv-144630' }
+  ],
+  setting: '圖書館四樓靠窗的座位，午後的陽光穿過灰塵在桌面形成一道光柱。你的螢幕上是一篇博士論文PDF——你反覆確認了三遍，這是你的碩士論文，一字不漏地被貼在比你早畢業的學長名下。',
+  dialogues: [
+    { speaker: '旁白', text: '你正在圖書館撰寫博士研究計畫，隨手搜尋大學時期學長的名字——沒想到跳出他的博士論文全文。' },
+    { speaker: '研究生', text: '（盯著螢幕，喃喃自語）這⋯⋯是我的論文。' },
+    { speaker: '同學', text: '什麼你的論文？你怎麼臉色發白？' },
+    { speaker: '研究生', text: '你來看——第三章整段、第四章的實驗設計、第五章的數據分析⋯⋯完全複製我兩年前發表的碩士論文。' },
+    { speaker: '同學', text: '誰的博士論文？' },
+    { speaker: '研究生', text: '李學長。我們大學同一個實驗室的，他比我早兩年畢業，現在是勞動部職災中心的執行長。' },
+    { speaker: '同學', text: '你確定不是你抄他的？他是學長欸，時間上⋯⋯' },
+    { speaker: '研究生', text: '我碩論比他博論早兩年畢業。而且你看這裡——我當年寫錯的「舵片」兩個字，他也原封不動抄進去了。但他的論文題目是「葉片疲勞分析」。' },
+    { speaker: '同學', text: '（湊近螢幕仔細比對）連標點符號的位置都一模一樣⋯⋯這超過三分之一了吧。' },
+    { speaker: '研究生', text: '他現在是政府高官，我該怎麼辦？' },
+    { speaker: '旁白', text: '圖書館的空調嗡嗡作響。你盯著那篇抄襲你的博士論文，感覺自己的研究成果被人偷走，卻不知道該不該出聲。' }
+  ],
+  choices: [
+    {
+      stage1: '忍氣吞聲',
+      stage2: [
+        {
+          label: '算了，當作沒看到',
+          result: '你關掉PDF，告訴自己「過去的就算了」。但接下來每次看到勞動部的相關新聞，你的胸口就一陣刺痛。你的研究成果變成了別人的升官籌碼，而你選擇了沉默。這份委屈在心裡生了根，讓你後來不太願意再分享自己的研究。',
+          scores: { ethics: -8, law: -5, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '把這件事埋在心裡，不對任何人說',
+          result: '你沒有告訴任何人，包括你的指導教授。半年後勞動部的新聞稿提到李執行長的「博士論文榮獲期刊引用獎項」，你看著那篇報導，拳頭握緊又放開。你的沉默變成了對抄襲者的默許。',
+          scores: { ethics: -12, law: -8, judgment: -10, empathy: -8 }
+        },
+        {
+          label: '刪除所有比對紀錄，說服自己「被引用也是肯定」',
+          result: '你刪除了比對截圖，甚至說服自己「學長願意抄代表我的論文寫得好」。但深夜失眠時你清楚知道，這不是引用，這是偷竊。你的自我安慰沒有帶來平靜，只帶來了更深的自厭。',
+          scores: { ethics: -15, law: -10, judgment: -12, empathy: -10 }
+        }
+      ]
+    },
+    {
+      stage1: '私下試探',
+      stage2: [
+        {
+          label: '寫一封禮貌的信給學長詢問',
+          result: '你花了一個小時起草一封語氣溫和的信：「學長您好，最近在整理文獻時發現您的博士論文與我的碩論有部分相似，想請教是否為引用時的疏忽。」學長三天後回信：「那是我們共同指導教授的計畫成果，我有貢獻，不算抄襲。」你無法接受這個說法，但也沒有進一步行動。',
+          scores: { ethics: 3, law: 3, judgment: 3, empathy: 5 }
+        },
+        {
+          label: '透過共同朋友探聽學長的反應',
+          result: '你拜託一位跟學長還有聯絡的大學同學，假裝閒聊中提到「最近有人在傳學長的論文跟學弟的碩論很像耶」。學長聽後反應激烈：「誰在亂講？那是同一個研究團隊的東西！」你的試探打草驚蛇，學長開始四處消毒，反而讓更多人知道這件事。',
+          scores: { ethics: 0, law: 0, judgment: -3, empathy: 3 }
+        },
+        {
+          label: '先跟自己的指導教授討論',
+          result: '你預約了指導教授的時間，關上門給他看了比對結果。教授仔細翻閱後嘆了一口氣：「這已經不是『參考』的範圍了。」他建議你先備份所有證據，然後由他出面跟對方指導教授溝通。你感受到有人站在你這邊的安心。',
+          scores: { ethics: 12, law: 10, judgment: 12, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '正式行動',
+      stage2: [
+        {
+          label: '向高科大提出學術倫理檢舉',
+          result: '你整理好所有比對資料，向高科大學術倫理委員會提出正式檢舉。一個月後委員會受理立案，約談了學長和他的指導教授。雖然過程讓你不安，但最終委員會認定抄襲成立，撤銷了學長的博士學位。勞動部隨後也對他表示了處分。',
+          scores: { ethics: 18, law: 15, judgment: 15, empathy: 10 }
+        },
+        {
+          label: '向勞動部政風室檢舉公務人員學倫問題',
+          result: '你同時向勞動部政風室提出檢舉，指出現任公務人員以抄襲論文取得博士學位，涉及任用資格問題。勞動部啟動行政調查，李執行長在調查期間申請離職。你的檢舉讓公部門開始重視文官的學術倫理背景。',
+          scores: { ethics: 20, law: 18, judgment: 18, empathy: 8 }
+        },
+        {
+          label: '要求學長公開道歉並說明',
+          result: '你在指導教授的陪同下，約學長見面。你清楚地告訴他：「我要一份公開的道歉聲明，說明你抄襲了我的碩士論文，並且向我的指導教授和口試委員道歉。」學長沉默了許久，最終同意了。雖然博士學位仍被撤銷，但公開道歉讓你拿回了屬於自己的尊嚴。',
+          scores: { ethics: 15, law: 12, judgment: 12, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '勞動部職災中心執行長李柏昌遭爆博士論文抄襲學弟碩士論文，近三分之一內容相同，連標點符號都一致——研究葉片卻出現大量舵片內容。李柏昌已申請離職，國立高雄科技大學啟動學術倫理調查程序。'
+});
+</script>
+</body>
+</html>

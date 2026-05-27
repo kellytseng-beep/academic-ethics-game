@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S10 - 校長一稿兩投雙邊拿錢 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S10">
+  <header>
+    <span class="badge" id="scenario-id">S10</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>深夜的研究室，日光燈低頻嗡鳴伴隨著鍵盤的輕響。你的螢幕上並排著兩篇論文——一篇掛名中國期刊、一篇以國科會補助結案——圖表數據幾乎完全重疊，你的手指停在滑鼠上微微發冷。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S10',
+  role: 'student',
+  difficulty: '進階',
+  newsSource: [
+    { name: '鏡週刊', url: 'https://www.mirrormedia.mg/story/20260324soc003' },
+    { name: '三立新聞網', url: 'https://setntest.sanlih.com.tw/News.aspx?NewsID=1813156' }
+  ],
+  setting: '深夜的研究室，日光燈低頻嗡鳴伴隨著鍵盤的輕響。你的螢幕上並排著兩篇論文——一篇掛名中國期刊、一篇以國科會補助結案——圖表數據幾乎完全重疊，你的手指停在滑鼠上微微發冷。',
+  dialogues: [
+    { speaker: '旁白', text: '深夜的研究室，只剩下你一個人。你無意間在中國期刊資料庫發現——校長最近發表的論文，和你上學期幫他整理的國科會結案報告，數據幾乎完全一致。' },
+    { speaker: '研究生', text: '（反覆切換視窗）這不可能⋯⋯表格、圖號、統計數字，全部一模一樣。' },
+    { speaker: '學姊', text: '（推門進來）你還沒走？十二點了欸。你在看什麼？' },
+    { speaker: '研究生', text: '妳過來看這個。校長去年在中國《儀器儀表學報》發的論文，跟今年送國科會的結案報告。' },
+    { speaker: '學姊', text: '（湊近螢幕，沉默幾秒）⋯⋯這根本是同一份研究，只是翻譯成中文而已。' },
+    { speaker: '研究生', text: '不只。你看他的作者簡介——「安徽霍邱人」，國籍欄寫的是Taiwan China。' },
+    { speaker: '學姊', text: '他拿國科會將近六百萬的補助，同時還申請了中國國家自然科學基金的經費？' },
+    { speaker: '研究生', text: '鳴謝欄裡確實同時掛了兩個計畫編號。這是一稿兩投，而且雙邊拿錢。' },
+    { speaker: '學姊', text: '⋯⋯他是校長，也是你的指導教授。你想清楚。' },
+    { speaker: '研究生', text: '可是如果我不做什麼，這件事情就永遠沒人知道。' },
+    { speaker: '旁白', text: '你看著那兩篇幾乎相同的論文，深夜的實驗室裡只剩下空調的低鳴和你的心跳聲。' }
+  ],
+  choices: [
+    {
+      stage1: '壓下不提',
+      stage2: [
+        {
+          label: '關掉視窗，當作沒看見',
+          result: '你關掉瀏覽器，告訴自己「這不關我的事」。但接下來每次 meeting，你看著校長的臉都無法直視他的眼睛。你開始避開研究室，論文的進度也停滯了。沉默並沒有帶來平靜，只帶來自責。',
+          scores: { ethics: -12, law: -5, judgment: -8, empathy: -3 }
+        },
+        {
+          label: '把比對檔案刪除，假裝從未發現',
+          result: '你刪除了所有比對截圖和研究筆記。然而幾天後新聞爆發，檢調約談校長室助理時，助理提到「有位研究生曾經調閱過結案報告」。調查人員來找你問話，你只能說謊。你的證詞矛盾被記錄在案，從證人變成了關係人。',
+          scores: { ethics: -15, law: -12, judgment: -10, empathy: -5 }
+        },
+        {
+          label: '告訴自己「學術界本來就是這樣」',
+          result: '你用「學術界潛規則」的說法說服自己，還反過來安慰學姊「這種事很常見」。學姊失望地看著你，淡淡說了一句「你以前不是這樣的」。那句話比任何處罰都痛。',
+          scores: { ethics: -10, law: -5, judgment: -8, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '謹慎求證',
+      stage2: [
+        {
+          label: '寫信向校長助理委婉詢問',
+          result: '你寫了一封語氣溫和的信給校長助理，表示「在整理文獻時發現兩篇論文內容相似，想確認是否為同一研究的不同語言版本」。助理警覺地回覆「校長的研究都是正當的，你不要亂猜測」。隔天你發現自己被移出了實驗室群組。',
+          scores: { ethics: 3, law: 3, judgment: -3, empathy: 5 }
+        },
+        {
+          label: '找你信任的教授私下請教',
+          result: '你找了大學部最尊敬的教授，關上門給他看了比對結果。教授嘆了一口氣：「你發現的事，系上其實有人私下在傳，但沒人敢碰。」他建議你保留證據，同時保護好自己。你至少知道你不孤單。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '和學姊一起完整比對，製作客觀報告',
+          result: '你和學姊花了一整晚，逐段比對兩篇論文，製作了一份客觀的對照表，標出所有重疊段落、計畫編號、以及國籍爭議。這份報告雖然沒有送出，但你們對學術倫理的邊界有了最深刻的體會。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 8 }
+        }
+      ]
+    },
+    {
+      stage1: '勇敢面對',
+      stage2: [
+        {
+          label: '向國科會提出學術倫理檢舉',
+          result: '你整理好證據，向國科會學術倫理審議會提出檢舉。兩個月後，國科會回覆已立案調查。消息傳回系上，有人說你是「正義之士」，也有人說你「背叛師門」。但你夜裡終於能睡著了。',
+          scores: { ethics: 18, law: 15, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '聯合同學具名向校評會陳情',
+          result: '你找到另外兩位也發現問題的同學，三人聯名具信給校評會，要求啟動學術倫理調查。校評會組成專案小組，校長在調查期間請假迴避。你們的勇氣讓其他不敢出聲的人也有了力量。',
+          scores: { ethics: 20, law: 12, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '先向校長表達你的發現，給他回應機會',
+          result: '你鼓起勇氣，在 meeting 結束後單獨對校長說：「校長，我發現您在中國發表的論文跟國科會結案報告有重疊，我想確認這是不是有行政上的疏失。」校長臉色大變，沉默了三十秒後說：「我會處理。」一週後論文被撤回，但國科會的調查也隨之啟動。你的正直讓校長至少有機會自己面對。',
+          scores: { ethics: 15, law: 10, judgment: 12, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台中科技大學校長陳同孝遭鏡週刊踢爆論文一稿兩投，同時向國科會申請近600萬元補助與中國國家自然科學基金。在中國期刊發表時自稱「中國安徽霍邱人」、國籍標註Taiwan China。國科會已依《學術倫理案件處理原則》啟動調查，校方表示將配合辦理。'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02 - 台師大女足抽血換學分 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S02">
+  <header>
+    <span class="badge" id="scenario-id">S02</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>傍晚，體育館的燈一盞接一盞熄滅。休息室的白熾燈嗡嗡作響，桌上擺著一疊研究同意書和幾管採血管，在日光燈下反射著冰冷的光。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S02',
+  role: 'student',
+  difficulty: '中級',
+  newsSource: [
+    { name: '三立新聞網', url: 'https://www.setn.com/News.aspx?NewsID=1690552' }
+  ],
+  setting: '傍晚，體育館的燈一盞接一盞熄滅。休息室的白熾燈嗡嗡作響，桌上擺著一疊研究同意書和幾管採血管，在日光燈下反射著冰冷的光。',
+  dialogues: [
+    { speaker: '教練', text: '進來，門關一下。' },
+    { speaker: '學生', text: '教練，有什麼事嗎？' },
+    { speaker: '教練', text: '學校有一項國際研究合作，需要運動員的血液樣本。妳是隊上主力，我希望妳參與。' },
+    { speaker: '學生', text: '抽⋯⋯抽血嗎？教練，我有點怕⋯⋯' },
+    { speaker: '教練', text: '就幾西西而已，不會影響訓練。這是跟國外頂尖期刊合作的研究，對學校很重要。' },
+    { speaker: '學生', text: '可是我聽說這個研究好像沒有經過人體試驗委員會的審查⋯⋯' },
+    { speaker: '教練', text: '（語氣轉冷）妳聽誰說的？這是正式的研究計畫，不用擔心那麼多。' },
+    { speaker: '教練', text: '這門課的學期成績，參與研究會有加分。當然，不配合我也不會勉強妳⋯⋯只是妳自己想清楚。' },
+    { speaker: '旁白', text: '教練離開後，你看著桌上那張同意書，手微微發抖。你知道不配合可能被當掉，但配合又覺得哪裡不對。' }
+  ],
+  choices: [
+    {
+      stage1: '順從配合',
+      stage2: [
+        {
+          label: '簽下同意書，配合抽血',
+          result: '你簽了同意書。護士抽了三管血，手臂留下一塊瘀青。教練露出滿意的笑容。成績過關了，但你心裡一直不舒服。半年後新聞爆發，你在調查中被列為受試者，雖然沒有責任，但你後悔當初沒有站出來。',
+          scores: { ethics: -10, law: -5, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '說服自己這是為了團隊',
+          result: '你閉上眼睛告訴自己這是為球隊好。抽血的當下你咬著嘴唇不敢看。後來你發現自己的血液樣本被用在沒有倫理審查的研究中，感到被背叛。學期結束後你默默退出了球隊，再也沒有回去看過任何一場比賽。',
+          scores: { ethics: -12, law: -5, judgment: -10, empathy: -3 }
+        },
+        {
+          label: '找隊友一起壯膽，集體參與',
+          result: '你拉著三個隊友一起去抽血。四人排排坐，一個接一個伸出手臂。教練稱讚你們「有團隊精神」。但後來你才知道，你的「鼓勵」讓那些原本想拒絕的隊友也失去了拒絕的機會。你間接成了壓力的傳遞者。',
+          scores: { ethics: -15, law: -8, judgment: -12, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '試探協商',
+      stage2: [
+        {
+          label: '以身體不適為由爭取時間',
+          result: '你跟教練說生理期不舒服，希望延後。教練皺眉說「好吧，但下週要補」。你爭取到一週緩衝，壓力卻沒減輕。這週內你四處打聽，發現其他系隊也有類似情況，這不是單一事件。',
+          scores: { ethics: 0, law: 2, judgment: 3, empathy: 2 }
+        },
+        {
+          label: '要求看到倫理審查文件再決定',
+          result: '你鼓起勇氣問：「教練，請問有人體試驗委員會的核准文件嗎？」教練愣了一下說「還在申請中」。你表示等文件下來再參加。教練不太高興但沒再逼你。你為自己爭取到了一個合乎程序的空間。',
+          scores: { ethics: 8, law: 10, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '私下諮詢學姐意見',
+          result: '你偷偷問了去年畢業的學姐。學姐告訴你：「去年也有人被要求抽血，向學校反映過但沒有下文。妳自己要小心。」你決定先觀望，不貿然行動也不配合。但你的被動讓後續更多學妹陷入了同樣的困境。',
+          scores: { ethics: 3, law: 0, judgment: 5, empathy: 5 }
+        }
+      ]
+    },
+    {
+      stage1: '勇敢拒絕',
+      stage2: [
+        {
+          label: '明確拒絕，指出倫理問題',
+          result: '你深呼吸後說：「教練，沒有人體試驗審查的研究我不能參加，這是保護我自己也是保護學校。」教練臉色很難看，但你站穩了立場。後來好幾個隊友私下跟你說：「謝謝妳幫我們說出不敢說的話。」',
+          scores: { ethics: 15, law: 12, judgment: 15, empathy: 10 }
+        },
+        {
+          label: '拒絕後向系辦公室反映',
+          result: '你不僅拒絕了教練，還寫了一封信給系主任，清楚說明事件經過。系主任非常重視，啟動了內部調查。雖然有一段時間你在隊上感到被孤立，但你的勇氣阻止了更多學生被不當對待。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '拒絕並聯合隊友共同申訴',
+          result: '你主動找了五個也有疑慮的隊友，一起寫了一份聯名申訴書送交教務處。學校收到申訴後立即暫停了該研究計畫。你們的團結讓教練無法個別打壓。這成為校園研究倫理意識提升的重要契機。',
+          scores: { ethics: 20, law: 18, judgment: 20, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台師大校教評會決議解聘周台英教練，4年內不得聘任為教師。研究主持人陳忠慶公開道歉。國際期刊《運動科學與醫學》確認論文違反人體研究倫理與《赫爾辛基宣言》，於2025年9月正式撤稿。教育部與衛福部、國科會組成專案小組調查。'
+});
+</script>
+</body>
+</html>

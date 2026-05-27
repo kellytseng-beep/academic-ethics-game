@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T02 - 台師大女足抽血換學分 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T02">
+  <header>
+    <span class="badge" id="scenario-id">T02</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>研究室午後，窗外的蟬鳴穿透空調的低頻噪音。桌上散落著研究計畫書和經費核銷單，一旁的採血管靜靜躺在紙盒裡，尚未拆封。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T02',
+  role: 'teacher',
+  difficulty: '中級',
+  newsSource: [
+    { name: '三立新聞網', url: 'https://www.setn.com/News.aspx?NewsID=1690552' }
+  ],
+  setting: '研究室午後，窗外的蟬鳴穿透空調的低頻噪音。桌上散落著研究計畫書和經費核銷單，一旁的採血管靜靜躺在紙盒裡，尚未拆封。',
+  dialogues: [
+    { speaker: '旁白', text: '你坐在研究室裡，翻閱著剛列印出來的研究計畫書。' },
+    { speaker: '研究主持人', text: '這項跨國研究需要五十名運動員的血液樣本，經費已經核下來了⋯⋯但 IRB 還沒過。' },
+    { speaker: '研究助理', text: '教授，IRB 排審至少要三個月，但國外合作方的截止日是下個月。' },
+    { speaker: '研究主持人', text: '我知道。可是沒有 IRB 核准，我們不能正式收案。這是違法的。' },
+    { speaker: '研究助理', text: '可是教練那邊說可以讓女足隊員參與⋯⋯她說如果跟課程成績結合，學生應該都會配合。' },
+    { speaker: '研究主持人', text: '（揉太陽穴）這樣會有權力不對等的問題⋯⋯學生可能不敢拒絕。' },
+    { speaker: '研究助理', text: '教練說以前也是這樣做的，沒出過問題。而且論文 deadline 就在眼前⋯⋯' },
+    { speaker: '研究主持人', text: '以前沒被發現不代表是對的。《赫爾辛基宣言》明確規定，研究參與必須完全自願，不得以利益或不利益誘迫。' },
+    { speaker: '旁白', text: '你看著桌上的同意書和採血管。你知道正確的做法是什麼，但現實的壓力也同樣真實。' }
+  ],
+  choices: [
+    {
+      stage1: '繞過審查繼續進行',
+      stage2: [
+        {
+          label: '先收案，IRB事後補件就好',
+          result: '你告訴自己這是「程序問題」，研究本身沒有風險。你讓教練開始收案，半個月內抽了四十名學生的血。IRB三個月後通過時，論文已經投出去了。但審查委員發現收案日期早於核准日期，啟動調查。你的學術生涯從此蒙上陰影。',
+          scores: { ethics: -15, law: -15, judgment: -12, empathy: -8 }
+        },
+        {
+          label: '說服自己這是「教學研究」不需審查',
+          result: '你引用教育部舊函，主張這是「課堂教學相關研究」不需IRB審查。教練據此要求全班參與。然而《人體研究法》明確定義血液採集屬於人體研究，你的解釋站不住腳。論文被撤銷時，你也被認定為研究倫理違規。',
+          scores: { ethics: -12, law: -10, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '僅讓「自願」學生參加，不強制',
+          result: '你請教練在課堂上宣布「自由參加」，但教練的語氣和權力關係讓學生感到「不參加就會有問題」。最終全班都簽了同意書。你安慰自己這是自願的，但研究倫理審查委員不這麼認為——沒有IRB就是違法。',
+          scores: { ethics: -8, law: -8, judgment: -5, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '尋求變通方案',
+      stage2: [
+        {
+          label: '暫緩收案，先送急件IRB審查',
+          result: '你決定等IRB通過再收案，並申請急件審查。IRB在六週後通過，你避免了違法風險。雖然國外合作方有些不悅，但論文最終仍順利發表。你的謹慎保護了學生也保護了自己。',
+          scores: { ethics: 8, law: 12, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '改用既有資料或文獻回顧代替',
+          result: '你向國外合作方說明IRB尚未通過，提議先用公開資料庫的數據進行前期分析。合作方同意了。你避開了人體實驗的爭議，但論文說服力不如原始數據。你學到一課：好的研究不能急。',
+          scores: { ethics: 10, law: 10, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '只收有外部IRB的合作單位數據',
+          result: '你將收案轉移到國外合作方已取得IRB核准的場域，避開本校的倫理審查問題。這個做法合規但成本高昂。你花費額外三個月和更多經費，但研究最終在合乎倫理的前提下完成。',
+          scores: { ethics: 5, law: 8, judgment: 8, empathy: 5 }
+        }
+      ]
+    },
+    {
+      stage1: '堅守研究倫理',
+      stage2: [
+        {
+          label: '暫停研究，完整通過IRB再開始',
+          result: '你發信給國外合作方，說明必須遵守我國《人體研究法》與《赫爾辛基宣言》，IRB通過才能收案。合作方表示理解。你同時知會教練不得以成績影響學生參與意願。三個月後IRB通過，你才正式啟動研究。',
+          scores: { ethics: 18, law: 18, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '公開呼籲建立運動研究倫理規範',
+          result: '你將此次經驗寫成一篇專欄，投稿到《台灣運動心理學報》，呼籲體育學術界正視研究倫理。文章引起熱烈回響，多位學者連署要求教育部建立運動科學研究的倫理審查指引。你成了這個領域的倫理先驅。',
+          scores: { ethics: 15, law: 12, judgment: 15, empathy: 10 }
+        },
+        {
+          label: '向校方建議建立研究倫理預審機制',
+          result: '你主動聯繫研發處，建議建立一個「研究倫理預審諮詢窗口」，讓教師在申請IRB前可以先獲得法規諮詢。校方採納了你的建議，並提名你擔任研究倫理委員會委員。你的影響力從個人延伸到制度。',
+          scores: { ethics: 20, law: 15, judgment: 20, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台師大校教評會決議解聘周台英教練，4年內不得聘任。研究主持人陳忠慶公開道歉。國際期刊《運動科學與醫學》確認論文違反人體研究倫理與《赫爾辛基宣言》，於2025年9月正式撤稿。教育部與衛福部、國科會組成專案小組調查。'
+});
+</script>
+</body>
+</html>

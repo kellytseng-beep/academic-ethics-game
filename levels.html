@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關卡列表 - 學術倫理遊戲</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <a href="index.html" class="back-link">← 大廳</a>
+  <div class="levels-header">
+    <span class="level-role-icon" id="lvl-icon"></span>
+    <span id="lvl-role-name"></span>
+    <span class="diff-badge" id="lvl-diff-badge"></span>
+  </div>
+  <div id="levels-list"></div>
+</div>
+<script src="game-engine.js"></script>
+<script src="scenarios.js"></script>
+<script>
+(function() {
+  var RI = { student:'🎓', teacher:'👨‍🏫', admin:'🏛️' };
+  var RN = { student:'學生', teacher:'老師', admin:'行政人員' };
+  var DL = { easy:'入門', medium:'中級', hard:'進階' };
+  var DC = { easy:'diff-easy', medium:'diff-medium', hard:'diff-hard' };
+
+  var params = new URLSearchParams(window.location.search);
+  var role = params.get('role');
+  var diff = params.get('diff') || 'all';
+
+  document.getElementById('lvl-icon').textContent = RI[role] || '';
+  document.getElementById('lvl-role-name').textContent = RN[role] || role;
+  if (diff !== 'all') {
+    document.getElementById('lvl-diff-badge').textContent = DL[diff];
+    document.getElementById('lvl-diff-badge').className = 'diff-badge ' + (DC[diff]||'');
+  } else {
+    document.getElementById('lvl-diff-badge').textContent = '全部';
+  }
+
+  var list = diff === 'all'
+    ? SCENARIOS.filter(function(s){ return s.role === role; })
+    : SCENARIOS.filter(function(s){ return s.role === role && s.difficulty === diff; });
+
+  var html = '';
+  var group = {};
+  list.forEach(function(s) { if (!group[s.difficulty]) group[s.difficulty] = []; group[s.difficulty].push(s); });
+  ['easy','medium','hard'].forEach(function(d) {
+    if (!group[d]) return;
+    html += '<div class="level-group"><div class="level-group-title"><span class="diff-badge '+(DC[d]||'')+'">'+(DL[d]||d)+'</span></div>';
+    group[d].forEach(function(s) {
+      html += '<a class="level-row" href="'+s.file+'" onclick="AEG.State.setRole(\''+role+'\')"><span class="lvl-play">▶</span><span class="lvl-title">'+s.title+'</span><span class="lvl-id">'+s.id+'</span></a>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('levels-list').innerHTML = html || '<p style="color:var(--text-light);text-align:center;margin-top:40px;">暫無關卡</p>';
+})();
+</script>
+</body>
+</html>

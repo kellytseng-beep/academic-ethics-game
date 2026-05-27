@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A06 - 假教授應徵台大 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A06">
+  <header>
+    <span class="badge" id="scenario-id">A06</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>你的桌上堆滿了教評會文件，行政助理在傍晚送來一杯已經涼掉的咖啡。身為系主任，你必須在明天的教評會前決定如何處理這份充滿疑點的應徵資料—而媒體已經打電話來問了。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A06',
+  role: 'admin',
+  difficulty: '中級',
+  newsSource: [ { name: 'Mnews', url: 'https://www.mnews.tw/story/mm-20250207inv006' } ],
+  setting: '你的桌上堆滿了教評會文件，行政助理在傍晚送來一杯已經涼掉的咖啡。身為系主任，你必須在明天的教評會前決定如何處理這份充滿疑點的應徵資料—而媒體已經打電話來問了。',
+  dialogues: [
+    { speaker: '行政助理', text: '主任，媒體記者剛打電話來，問我們是不是在審查一位有造假前科的應徵者。' },
+    { speaker: '你', text: '⋯⋯他們怎麼知道的？' },
+    { speaker: '行政助理', text: '不清楚，但說有「系內人士」提供消息。' },
+    { speaker: '你', text: '資料審查到什麼階段了？' },
+    { speaker: '行政助理', text: '三位教授的初審意見都回來了，兩位推薦、一位保留。' },
+    { speaker: '你', text: '保留的原因是什麼？' },
+    { speaker: '行政助理', text: '李教授說她發現幾篇論文查不到期刊來源，還在確認中。' },
+    { speaker: '你', text: '把李教授的意見和那份資料拿給我看⋯⋯這拼字錯誤也太明顯了。' },
+    { speaker: '行政助理', text: '那媒體那邊怎麼回應？' },
+    { speaker: '你', text: '先說「依照程序審查中，不便透露細節」。另外通知教評會委員，明天加開臨時會。' }
+  ],
+  choices: [
+    { stage1: '主動調查', stage2: [ { label: '暫停審查啟動內部調查', result: '你當機立斷暫停審查，組成三人調查小組，一週後確認造假屬實，主動發布聲明，化危機為轉機。', scores: {ethics: 5, law: 5, judgment: 6, empathy: 3} }, { label: '組成外部專家小組驗證', result: '外部專家驗證發現15篇論文完全不存在，報告送交教評會，決議不予聘任，程序公正無可挑剔。', scores: {ethics: 6, law: 5, judgment: 6, empathy: 2} }, { label: '要求應徵者親自到校說明', result: '應徵者缺席說明會，不久後主動撤件。你保全了系所名譽，也避免了不必要的爭議。', scores: {ethics: 4, law: 3, judgment: 4, empathy: 4} } ] },
+    { stage1: '按程序走', stage2: [ { label: '維持原訂時程不干涉審查', result: '教評會依程序審查，最終也未通過聘任，但媒體已報導負面消息，校方高層關切。', scores: {ethics: 2, law: 2, judgment: 0, empathy: 1} }, { label: '請教評會加速決議', result: '加速決議過程不夠嚴謹，雖然最終未聘任，但遭質疑程序正義，你被檢討決策失當。', scores: {ethics: -1, law: -3, judgment: -2, empathy: 1} } ] },
+    { stage1: '冷處理', stage2: [ { label: '請媒體不要報導', result: '媒體不予理會，隔天頭條報導。校方被動回應，形象受損，你被高層約談。', scores: {ethics: -2, law: -2, judgment: -4, empathy: 0} }, { label: '暫緩招聘並低調撤件', result: '招聘暫緩但未說明原因，引發更多揣測。造假者轉往私校應徵，最終被該校查出，你因未通報而遭批評。', scores: {ethics: -1, law: -2, judgment: -3, empathy: 1} } ] }
+  ],
+  realWorldOutcome: '台大生機系審查發現陳杏圓資料至少10處瑕疵，不予聘任。新聞曝光後，教育部修正教師應徵審查要點，要求各校增列論文真實性聲明及查核機制。陳杏圓先前因偽造UCLA學歷被判刑的紀錄亦被媒體廣泛報導。'
+});
+</script>
+</body>
+</html>

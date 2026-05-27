@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A07 - 復旦博士抄襲台灣論文 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A07">
+  <header>
+    <span class="badge" id="scenario-id">A07</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>校長室轉來一通教育部的電話，告知有媒體即將報導本校學生論文遭中國學者全文抄襲。你掛上電話，秘書推門進來，手上拿著復旦大學的正式函件—他們希望低調處理。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A07',
+  role: 'admin',
+  difficulty: '進階',
+  newsSource: [ { name: '中央社', url: 'https://www.cna.com.tw/news/acn/202502250367.aspx' } ],
+  setting: '校長室轉來一通教育部的電話，告知有媒體即將報導本校學生論文遭中國學者全文抄襲。你掛上電話，秘書推門進來，手上拿著復旦大學的正式函件—他們希望低調處理。',
+  dialogues: [
+    { speaker: '秘書', text: '主任，教育部高教司來電，說有記者去問了本校研究生論文被中國抄襲的事。' },
+    { speaker: '你', text: '他們的資訊來源是？' },
+    { speaker: '秘書', text: '應該是學生或指導教授透露的。另外，復旦大學也發了正式函件過來。' },
+    { speaker: '你', text: '復旦說什麼？' },
+    { speaker: '秘書', text: '他們表示「已注意到相關反映」，正在內部調查，希望我方提供更多證據。' },
+    { speaker: '你', text: '提供更多證據？抄襲比對表我們已經準備好了。' },
+    { speaker: '秘書', text: '但復旦的意思可能是⋯⋯希望我們不要擴大處理，低調協商。' },
+    { speaker: '你', text: '這件事涉及學術倫理，不能低調到沒有記錄。我們要用正式的校對校管道。' },
+    { speaker: '秘書', text: '媒體那邊怎麼說？' },
+    { speaker: '你', text: '準備一份不涉及個資的聲明稿。重點是：我們支持學生捍衛學術著作權，也尊重對岸大學的調查程序。' }
+  ],
+  choices: [
+    { stage1: '強硬維護學生', stage2: [ { label: '以校方名義正式發函復旦', result: '正式函件附上抄襲比對報告，復旦三個月後回覆確認退站處分。兩校後續簽訂學術倫理合作備忘錄。', scores: {ethics: 6, law: 5, judgment: 6, empathy: 4} }, { label: '公開聲明支持學生並譴責抄襲', result: '聲明稿獲得學術界肯定，但也引發中國網友不滿。學生感謝校方力挺，正義雖遲但到。', scores: {ethics: 5, law: 3, judgment: 3, empathy: 5} }, { label: '協助學生循法律途徑求償', result: '律師評估跨海訴訟成本高，但最終在兩岸著作權協定下達成和解賠償，創下先例。', scores: {ethics: 5, law: 5, judgment: 2, empathy: 4} } ] },
+    { stage1: '外交溝通', stage2: [ { label: '透過兩岸學術交流管道協商', result: '透過台灣高等教育學會聯繫，復旦承諾調查但未公開結果。事情低調落幕，但學生覺得不夠透明。', scores: {ethics: 3, law: 2, judgment: 2, empathy: 1} }, { label: '與復旦私下達成協議', result: '復旦內部處分抄襲者但未公開，校方要求師生保密。學生雖拿到道歉信，但無法公開平反。', scores: {ethics: 1, law: -1, judgment: -2, empathy: 1} } ] },
+    { stage1: '息事寧人', stage2: [ { label: '鼓勵學生私下和解', result: '學生不願和解，轉而自行向媒體爆料。校方被動回應，形象受損，你被批評未盡保護之責。', scores: {ethics: -3, law: -2, judgment: -4, empathy: -3} }, { label: '要求師生低調避免兩岸敏感', result: '師生感到不被支持。學生在畢業後才自行檢舉，錯過了最佳時機，抄襲者逍遙法外。', scores: {ethics: -5, law: -3, judgment: -4, empathy: -4} }, { label: '不接受媒體採訪', result: '媒體以「校方封口」為題報導，校譽受損。學生也質疑學校為何不願為他們說話。', scores: {ethics: -4, law: -2, judgment: -4, empathy: -3} } ] }
+  ],
+  realWorldOutcome: '復旦大學博士後王燦抄襲台灣4篇碩士論文經檢舉屬實，予以退站處理。此案凸顯兩岸學術倫理互助機制不足。台灣教育部後續建立跨國學術倫理申訴指引，鼓勵各大學與中國高校簽訂學術倫理合作備忘錄。'
+});
+</script>
+</body>
+</html>

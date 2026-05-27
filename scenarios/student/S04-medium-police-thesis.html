@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S04 - 警大校長論文抄襲 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S04">
+  <header>
+    <span class="badge" id="scenario-id">S04</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>深夜的研究室，日光燈發出細微嗡嗡聲。桌上堆滿論文，螢幕上開啟著一篇與指導教授研究案高度相似的碩士論文，AI比對報告的紅字標記刺眼地亮著。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S04',
+  role: 'student',
+  difficulty: '中級',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6885/8922659' },
+    { name: 'TVBS', url: 'https://news.tvbs.com.tw/local/2952866' }
+  ],
+  setting: '深夜的研究室，日光燈發出細微嗡嗡聲。桌上堆滿論文，螢幕上開啟著一篇與指導教授研究案高度相似的碩士論文，AI比對報告的紅字標記刺眼地亮著。',
+  dialogues: [
+    { speaker: '旁白', text: '你是一位犯罪防治研究所的研究生。今晚在研究室準備論文時，看到學長傳來的新聞連結——新任警大校長的碩士論文，被爆與他的指導教授研究案重疊率高達45%。' },
+    { speaker: '學長', text: '你看新聞了嗎？警大校長那篇論文，AI比對出來十四頁幾乎一字不改。連錯字都一模一樣。' },
+    { speaker: '研究生', text: '我看到了他指導教授就是那篇研究案的主持人。這種「延伸研究」到底算不算抄襲？' },
+    { speaker: '學長', text: '問題是警大說「具有獨創性」。但我把論文和研究案對照著看⋯⋯連標點符號、筆誤都一樣。' },
+    { speaker: '研究生', text: '（喃喃）如果今天我寫論文也這樣「參考」老師的研究案，口試委員應該直接讓我打包回家吧。' },
+    { speaker: '學長', text: '這就是我想說的。同樣的標準，為什麼對校長就不一樣？我們要不要把完整對比貼到系上群組？' },
+    { speaker: '研究生', text: '貼出去會不會被認為我們在挑戰學校？而且他現在是校長⋯⋯' },
+    { speaker: '學長', text: '正因為他是校長，學術倫理的標準不是應該更高嗎？你怎麼想？' },
+    { speaker: '旁白', text: '你看著螢幕上並列的兩份文件，心裡很矛盾。你知道什麼是對的，但現實的權力關係讓你猶豫。' }
+  ],
+  choices: [
+    {
+      stage1: '附和隱瞞',
+      stage2: [
+        {
+          label: '勸學長不要多事',
+          result: '你告訴學長「這種事讓學校處理就好，我們不要當出頭鳥」。學長失望地關掉對比檔案。後來新聞持續延燒，學長不再找你討論學術問題。你失去了一個可以一起堅持理想的夥伴。',
+          scores: { ethics: -8, law: -3, judgment: -5, empathy: -3 }
+        },
+        {
+          label: '幫忙緩頰，說這是「學術傳承」',
+          result: '你在群組發文說「論文以研究案為基礎是常見做法」。其他同學默默不語。你表面上緩和了氣氛，但私下同學開始質疑你的判斷力。你的學術立場因為人情而模糊了。',
+          scores: { ethics: -10, law: -3, judgment: -8, empathy: -3 }
+        },
+        {
+          label: '轉移話題，不表達立場',
+          result: '你打哈哈說「先專心自己的論文吧」，沒有正面回應。學長覺得你態度消極。之後的學術討論中，大家漸漸不找你參與。你沒有得罪任何人，但也失去了同儕的信任。',
+          scores: { ethics: -5, law: 0, judgment: -3, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '謹慎討論',
+      stage2: [
+        {
+          label: '和學長私下深入研究',
+          result: '你和學長花了一整個晚上仔細比對論文，標出所有雷同段落，製作了一份客觀的對照表。雖然沒有公開，但你們透過這份練習更深刻理解了什麼是抄襲、什麼是合理引用。這份能力讓你們往後的論文寫作更加謹慎。',
+          scores: { ethics: 8, law: 5, judgment: 10, empathy: 3 }
+        },
+        {
+          label: '寫信向老師請教論文指導界限',
+          result: '你寫了一封誠懇的信給你的指導教授，請教「如何在指導教授的研究基礎上發展自己的論文而不越界」。教授很欣賞你的求知態度，特地花一小時跟你討論學術倫理的灰色地帶。這讓你對自主研究有了更清晰的認識。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '在同學間發起小型學倫討論會',
+          result: '你邀請三五個信任的同學，在研究室辦了一場非正式的學術倫理討論會。大家坦誠分享各自的困惑和觀察，沒有人被批判，只有互相學習。這場討論會後，好幾個人修改了論文中的引用方式。',
+          scores: { ethics: 12, law: 8, judgment: 10, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '勇敢質疑',
+      stage2: [
+        {
+          label: '實名在校內論壇提出疑問',
+          result: '你在校內學術論壇實名發文，從客觀角度分析論文的雷同情節，並提出「學術倫理是否應該因人而異」的核心提問。文章引發廣泛討論，教務長公開回應將重新審視校內學倫處理機制。你雖感到壓力，但更多人支持你的勇氣。',
+          scores: { ethics: 15, law: 10, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '向學生會建議發起學倫週',
+          result: '你透過學生會提案舉辦「學術倫理週」，邀請學者演講、舉辦論文寫作工作坊。提案獲得通過，活動吸引了上百人參與。你將一個爭議事件轉化為全校師生的學習機會，證明了學生的聲音可以帶來正向改變。',
+          scores: { ethics: 18, law: 12, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '整理學術倫理懶人包供同學參考',
+          result: '你花了一個週末整理出一份「論文寫作學術倫理十問」懶人包，放在系上公開資料區。內容包含合理引用範圍、指導關係中的界線、AI比對工具的使用建議。懶人包被下載超過三百次，連教授都轉發給自己的研究生。',
+          scores: { ethics: 20, law: 15, judgment: 15, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '警大新任校長黃明昭遭爆2004年碩士論文與指導教授謝文彥的研究案高度雷同，AI比對重疊率達45%，14頁內容連續複製貼上一字不改。警大回應聲稱論文「具有獨創性」，研究對象、樣本、訪談結果均與研究案不同。此案依警大學術倫理處理要點規定程序辦理。'
+});
+</script>
+</body>
+</html>

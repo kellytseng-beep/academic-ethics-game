@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03 - 中一中學霸科展抄襲 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S03">
+  <header>
+    <span class="badge" id="scenario-id">S03</span>
+    <span class="badge" id="difficulty">入門</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>放學後的科學研究室，窗簾半拉，夕陽斜照在實驗桌上。一疊列印出來的科展作品資料散落桌面，頁緣被螢光筆畫滿了標記。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S03',
+  role: 'student',
+  difficulty: '入門',
+  newsSource: [
+    { name: '喀報', url: 'https://www.knews.com.tw/news/CA0C8AA1898374EAAE3562F14728F0FA' }
+  ],
+  setting: '放學後的科學研究室，窗簾半拉，夕陽斜照在實驗桌上。一疊列印出來的科展作品資料散落桌面，頁緣被螢光筆畫滿了標記。',
+  dialogues: [
+    { speaker: '指導老師', text: '你的科展作品我仔細看過了。這個實驗架構跟去年學長姐做的那個很像。' },
+    { speaker: '學生', text: '老師，我是參考學長姐的方法，但數據是我自己做的！' },
+    { speaker: '指導老師', text: '我查了全國科展資料庫，你這幾段文獻探討——跟學長去年發表的論文一模一樣。' },
+    { speaker: '學生', text: '（聲音變小）我⋯⋯我只是覺得學長寫得很好，稍微改了一點⋯⋯' },
+    { speaker: '指導老師', text: '不是改一點的問題。整個實驗設計、方法描述、討論的段落順序都幾乎相同。' },
+    { speaker: '學生', text: '可是老師，我的實驗結果跟學長不一樣！我有新的發現⋯⋯' },
+    { speaker: '指導老師', text: '研究倫理不是只看結果。你使用了別人的智慧財產卻沒有適當引用，這就是抄襲。' },
+    { speaker: '學生', text: '但是科展初賽已經過了，我已經拿到全國賽資格了⋯⋯而且台大醫學系的申請也送出去了⋯⋯' },
+    { speaker: '指導老師', text: '（嘆氣）成績和資格都不是最重要的。你打算怎麼處理這件事？' }
+  ],
+  choices: [
+    {
+      stage1: '掩蓋否認',
+      stage2: [
+        {
+          label: '堅稱原創，說是老師誤會',
+          result: '你堅持作品是自己做的，指責老師「亂說」。老師拿出比對報告，逐段對照給你看。你啞口無言。老師將案件提交學校，科展成績被取消。因為你未能誠實面對，校方記了一次警告，大學申請也受到影響。',
+          scores: { ethics: -12, law: -8, judgment: -10, empathy: -8 }
+        },
+        {
+          label: '推說學長姐的論文「只是參考資料」',
+          result: '你強調學長姐的論文只是「參考」，但比對結果顯示連圖表的標題和格式都一模一樣。科教館認定這已經不是參考而是重製。你的全國科展第一名資格被撤銷，獎狀和獎金都被追回。',
+          scores: { ethics: -10, law: -8, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '刪除疑似的段落，希望蒙混過關',
+          result: '你緊急修改作品說明書，刪掉被標記的段落，重新交了一份新的給老師。但老師已經存檔了原始版本。對比之下你的行為被視為「意圖滅證」，學校加重處分，並通報科教館。',
+          scores: { ethics: -15, law: -10, judgment: -12, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '尋求補救',
+      stage2: [
+        {
+          label: '承認參考過多，願意修改',
+          result: '你承認自己參考學長姐作品時「不小心寫得太像」，願意重寫文獻探討和實驗方法部分。老師給你兩週時間修改。你重新交出的版本雖然仍然不夠完善，但至少展現了誠意。',
+          scores: { ethics: 5, law: 3, judgment: 5, empathy: 5 }
+        },
+        {
+          label: '主動向學長姐道歉並請求同意',
+          result: '你聯絡了已畢業的學長姐，坦承自己使用了他們的作品來構思你的科展。學長雖然不太高興，但欣賞你的誠實。他們同意你重新引用並註明出處。老師幫你向科展委員會說明，最終處分減輕。',
+          scores: { ethics: 8, law: 5, judgment: 8, empathy: 10 }
+        },
+        {
+          label: '請求老師指導如何正確引用',
+          result: '你承認自己對學術引用規範不了解，請老師指導你正確的引用方式。老師花了三週時間教你寫作規範，你重新整理了作品。雖然還是被扣了分數，但你學到了比獎項更重要的東西。',
+          scores: { ethics: 10, law: 5, judgment: 10, empathy: 8 }
+        }
+      ]
+    },
+    {
+      stage1: '坦誠面對',
+      stage2: [
+        {
+          label: '全盤承認，接受取消資格',
+          result: '你向老師完整坦承了一切：如何參考學長姐作品、如何包裝成自己的、如何心存僥倖。老師沉默了很久說：「誠實是需要勇氣的。」你主動向科展委員會表明願意接受任何處分。你的誠實為你保留了尊嚴。',
+          scores: { ethics: 15, law: 10, judgment: 12, empathy: 10 }
+        },
+        {
+          label: '坦承後主動退出比賽並道歉',
+          result: '你不僅坦承錯誤，還主動寫了一封道歉信給科展委員會，宣布退出全國賽。信中說：「我寧可失去獎項，也不要失去誠實的品格。」這封信讓委員會成員動容，雖然資格仍被取消，但他們肯定你的態度。',
+          scores: { ethics: 18, law: 12, judgment: 15, empathy: 15 }
+        },
+        {
+          label: '坦承錯誤，請求參加學術倫理課程',
+          result: '你坦承一切後主動問老師：「有沒有學術倫理的課程可以讓我學習？」學校幫你安排了線上的學術倫理課程。你認真完成了所有單元並通過測驗。雖然科展資格沒了，但你獲得了比獎狀更有價值的學習。',
+          scores: { ethics: 20, law: 12, judgment: 18, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '科教館認定科展作品違反研究倫理，撤銷全國科展第一名及國際科展四等獎資格，追回獎狀及獎金。台大招生委員會決議撤銷該生經繁星推薦錄取醫學系的資格。'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A11 - 高官博士論文抄襲碩士學弟 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A11">
+  <header>
+    <span class="badge" id="scenario-id">A11</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>辦公桌上公文堆成小山，最上面那份「博士論文抄襲疑雲」的媒體監看報告與辭呈並排放著，讓午後窗外的陽光顯得格外刺眼。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A11',
+  role: 'admin',
+  difficulty: '中級',
+  newsSource: [
+    { name: '鏡新聞', url: 'https://www.mnews.tw/story/mm-20260513-54inv-144630' }
+  ],
+  setting: '辦公桌上公文堆成小山，最上面那份「博士論文抄襲疑雲」的媒體監看報告與辭呈並排放著，讓午後窗外的陽光顯得格外刺眼。',
+  dialogues: [
+    { speaker: '旁白', text: '你是勞動部人事處長。今天一早，媒體監看通報與一份辭呈同時送達你的辦公桌。' },
+    { speaker: '人事處長', text: '（讀報告）「職災中心李執行長博士論文涉抄襲學弟碩士論文，相似度近三成⋯⋯」' },
+    { speaker: '科長', text: '處長，高科大剛剛發函來，說他們已收到檢舉，正式啟動學術倫理調查程序。' },
+    { speaker: '人事處長', text: '李執行長本人知道嗎？' },
+    { speaker: '科長', text: '這份辭呈就是他今天早上親手送來的——理由是「個人生涯規劃」。' },
+    { speaker: '人事處長', text: '（把辭呈放在燈光下）時間點也太巧了。記者那邊呢？' },
+    { speaker: '科長', text: '鏡新聞已經在追了。部長辦公室剛剛來電，問我們的態度是什麼。' },
+    { speaker: '人事處長', text: '他去年考績還是甲等⋯⋯' },
+    { speaker: '科長', text: '處長，我看過那份比對報告了。他抄的是學弟的碩論，連標點符號都一樣。而且他的論文研究葉片，被抄的那篇研究的是舵片——差這麼多。' },
+    { speaker: '人事處長', text: '（嘆了一口氣）這麼拙劣的抄襲，不是一句「引用失當」可以交代的。你發文給高科大，請他們在一個月內完成調查報告。同時我們內部也要啟動行政調查。' },
+    { speaker: '旁白', text: '你看著辭呈和媒體監看報告並排放著，知道這件事的漣漪不會只是學術圈的事。' }
+  ],
+  choices: [
+    {
+      stage1: '息事寧人',
+      stage2: [
+        {
+          label: '准予辭職，冷處理結案',
+          result: '你批准了辭呈，並以「當事人已離職」為由婉拒所有媒體採訪。但辭職不代表事情結束——議員在質詢台上公開質問勞動部「用抄襲論文的人當執行長，你們的任用機制在哪裡？」部長被問得啞口無言，事後檢討為什麼沒有更早處理。',
+          scores: { ethics: -10, law: -8, judgment: -10, empathy: -5 }
+        },
+        {
+          label: '不評論、不對外回應，等校方結果',
+          result: '你指示所屬「不要對外發言，等高科大的調查結果再說」。然而媒體每天都在追問，部內員工也開始議論。你沒有掌握話語權，報導方向漸漸變成「勞動部消極以對」。等到高科大報告出爐時，勞動部已經被貼上「包庇」的標籤。',
+          scores: { ethics: -8, law: -5, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '以「個人學術問題」切割，不影響部務',
+          result: '你對內表示「這是李執行長的個人學術問題，與勞動部業務無關」。但這句話在記者會上被記者反問：「那你們任用時審查過他的學歷嗎？」你答不出來。你很快就知道——公務人員的學歷問題，從來不只是個人問題。',
+          scores: { ethics: -12, law: -8, judgment: -12, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '行政處置',
+      stage2: [
+        {
+          label: '啟動內部行政調查',
+          result: '你簽核啟動內部行政調查，由政風室與人事處共同組成小組，釐清李執行長在任用資格與考績評核上有無行政疏失。調查發現，他的博士學歷在任用時並未被確實查證。你據此修正了「主管任用學歷查證作業要點」，堵住了制度漏洞。',
+          scores: { ethics: 12, law: 15, judgment: 15, empathy: 5 }
+        },
+        {
+          label: '發文高科大要求加速調查',
+          result: '你以勞動部名義正式發文高科大，請校方「基於公共利益，儘速完成學術倫理調查」。高科大在收到公文後加速程序，兩個月內完成調查報告。你的正式發文讓校方感受到壓力，也為勞動部留下了「積極面對」的紀錄。',
+          scores: { ethics: 10, law: 12, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '將辭呈暫緩處理，待調查結果決定',
+          result: '你決定暫不批准辭呈，改為「先行停職，靜待調查」。你告訴李執行長：「辭職是你的權利，但我們需要先知道事實。」停職期間薪資減半，調查結果出爐後若屬實，將依法追回相關福利。你的依法行事讓內部人員看到制度的公正性。',
+          scores: { ethics: 15, law: 18, judgment: 15, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '公開透明',
+      stage2: [
+        {
+          label: '主動召開記者會說明處理立場',
+          result: '你在收到媒體監看通報的隔天即召開記者會，說明：(1)勞動部已啟動行政調查；(2)發文高科大請求速查；(3)尊重學術結果會依法處置。記者會後媒體報導方向轉向正面——「勞動部正面回應學倫案，不迴避」。你的主動讓勞動部位於制高點。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '移送監察院調查任用有無疏失',
+          result: '你主動將全案移送監察院，請求調查李執行長在任用與考績過程中，有無涉及公務人員陞遷法的違失。監察院立案調查，雖然過程繁瑣，但最終報告幫助勞動部全面檢討了高階文官的學歷查核機制。你的自我糾舉贏得了「勇於面對」的評價。',
+          scores: { ethics: 20, law: 18, judgment: 20, empathy: 8 }
+        },
+        {
+          label: '全面檢討勞動部高階文官學歷查核機制',
+          result: '你利用此案契機，提案修訂「勞動部主管人員任用學歷查核作業要點」，新增：(1)博士學位須出具論文摘要審查；(2)國外學歷須經駐外單位認證；(3)任用前主動查詢學倫爭議資料庫。此要點後來被其他部會參考採用。你將一次危機化為制度革新的機會。',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '勞動部職災中心執行長李柏昌遭爆博士論文抄襲學弟碩士論文，近三分之一內容相同，連標點符號都一致——研究葉片卻出現大量舵片內容。李柏昌已申請離職，國立高雄科技大學啟動學術倫理調查程序。'
+});
+</script>
+</body>
+</html>

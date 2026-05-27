@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S09 - 北科大研究生輕生事件 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S09">
+  <header>
+    <span class="badge" id="scenario-id">S09</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>北科大研究室，深夜。桌上堆滿被退回的論文草稿，便利貼在不同顏色之間切換——紅色是第二次修改，藍色是第三次，黃色是第四次。窗外一片寂靜。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S09',
+  role: 'student',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中央社', url: 'https://www.cna.com.tw/news/ahel/202605200199.aspx' },
+    { name: '鏡週刊', url: 'https://www.mirrormedia.mg/story/20260521edi054' }
+  ],
+  setting: '北科大研究室，深夜。桌上堆滿被退回的論文草稿，便利貼在不同顏色之間切換——紅色是第二次修改，藍色是第三次，黃色是第四次。窗外一片寂靜。',
+  dialogues: [
+    { speaker: '旁白', text: '你是北科大研究所學生。這學期你的指導教授已經第四次要求你更換論文題目，每次你照他的意見做完，他就說「這不是我要的」。上週你還被踢出他的國科會計畫。' },
+    { speaker: '你', text: '（看著又一次被退回的草稿）我真的不知道該怎麼辦了⋯⋯這個題目是他上個月要我換的，我熬夜做完文獻回顧，他現在又說方向不對。' },
+    { speaker: '學長', text: '他又叫你改題目？！這已經是第四次了吧？' },
+    { speaker: '你', text: '對。每次我照他說的做，做完他就推翻。我覺得我好像在黑屋子裡跑步，永遠到不了終點。' },
+    { speaker: '學長', text: '而且他還把你踢出計畫了⋯⋯我聽說以前也有學姐跟他鬧翻，後來休學了。你不覺得他根本是在刁難你嗎？' },
+    { speaker: '你', text: '我不知道是刁難還是我真的能力不足⋯⋯我每天醒來都在想，是不是乾脆休學算了。但已經花了兩年，不甘心。' },
+    { speaker: '學長', text: '你⋯⋯不要悶在心裡。要不要去找系主任談？或去學生輔導中心？' },
+    { speaker: '你', text: '如果去了，教授知道了會不會更生氣⋯⋯我真的很害怕。我不知道誰可以幫我。' }
+  ],
+  choices: [
+    {
+      stage1: '主動尋求協助',
+      stage2: [
+        {
+          label: '向系主任正式反映指導問題',
+          result: '你鼓起勇氣走進系主任辦公室，把所有時間線和證據清楚地說明。系主任認真聆聽，承諾會了解狀況並保護你的權益。你走出辦公室時，第一次感覺有人願意聽你說話。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '預約學生輔導中心諮商',
+          result: '你預約了輔導中心，和心理師談了這學期以來的壓力。對方提供了情緒支持與壓力管理技巧，並建議你思考是否需要啟動校內申訴或更換指導教授。你感覺不那麼孤單了。',
+          scores: { ethics: 8, law: 3, judgment: 8, empathy: 15 }
+        },
+        {
+          label: '在Dcard匿名發文抒發心情',
+          result: '你在Dcard發文描述自己的處境，獲得許多網友打氣。但也有人質疑「一定是你自己不夠努力」，還有同校學生猜測你在說哪位教授。匿名平台無法解決實際問題。',
+          scores: { ethics: -3, law: -5, judgment: -5, empathy: 5 }
+        }
+      ]
+    },
+    {
+      stage1: '嘗試與教授溝通',
+      stage2: [
+        {
+          label: '理性約談教授討論論文方向',
+          result: '你整理好所有版本的題目和修改意見，冷靜地與教授約談。教授一開始防備，但當你拿出時間線對照時，他沉默了。最後他說「我再想想」，之後態度略有緩和。',
+          scores: { ethics: 8, law: 5, judgment: 10, empathy: 8 }
+        },
+        {
+          label: '請求另一位教授協助調解',
+          result: '你找了一位你修過課且信任的教授，請求他協助你和指導教授溝通。第三者介入讓對話不再那麼情緒化，雙方簽訂了明確的論文時程表。溝通有了結構。',
+          scores: { ethics: 12, law: 8, judgment: 12, empathy: 10 }
+        },
+        {
+          label: '寫信向教授道歉並求情',
+          result: '你寫了一封長信向教授道歉，說自己能力不足，請教授再給機會。教授沒有回信。你的自我貶抑沒有換來同情，反而讓自己陷入了更深的無力感。',
+          scores: { ethics: -5, law: -3, judgment: -8, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '考慮更換指導教授',
+      stage2: [
+        {
+          label: '正式向系上提出更換指導教授申請',
+          result: '你硬著頭皮向系上遞出更換指導教授申請。程序需要原指導教授簽署同意書，過程充滿煎熬。但一個月後你成功轉到新教授門下，新的指導風格讓你重新找回研究節奏。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '先打聽其他教授是否願意收留',
+          result: '你私下詢問了幾位教授是否願意擔任你的新指導教授。多數因人情壓力婉拒，但有一位副教授表示願意支持你。有了備案後你更有底氣去面對目前的困境。',
+          scores: { ethics: 8, law: 5, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '申請校際轉學換環境',
+          result: '你決定申請轉到他校研究所。新環境讓你重新開始，但原學校的學分抵免繁瑣，畢業時間延後一年。你逃離了壓力，但也付出了學術生涯的代價。',
+          scores: { ethics: 3, law: 0, judgment: 5, empathy: 8 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '北科大研究生疑因指導教授長期刁難（論文題目4個月改4次、被踢出計畫）輕生。校方暫停涉案教師教學指導權並啟動調查。此事件引發學術界對於師生權力不對等與研究生權益保障的全面討論。'
+});
+</script>
+</body>
+</html>

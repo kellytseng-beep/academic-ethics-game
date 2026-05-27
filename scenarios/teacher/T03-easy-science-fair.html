@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T03 - 中一中學霸科展抄襲 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T03">
+  <header>
+    <span class="badge" id="scenario-id">T03</span>
+    <span class="badge" id="difficulty">入門</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>教師辦公室深夜，頭頂的日光燈有一管故障，發出細微的嗡嗡聲。桌上攤著兩份科展作品——一份是今年學生的，另一份是已畢業學生的舊作，頁面上的螢光標記幾乎完全重疊。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T03',
+  role: 'teacher',
+  difficulty: '入門',
+  newsSource: [
+    { name: '喀報', url: 'https://www.knews.com.tw/news/CA0C8AA1898374EAAE3562F14728F0FA' }
+  ],
+  setting: '教師辦公室深夜，頭頂的日光燈有一管故障，發出細微的嗡嗡聲。桌上攤著兩份科展作品——一份是今年學生的，另一份是已畢業學生的舊作，頁面上的螢光標記幾乎完全重疊。',
+  dialogues: [
+    { speaker: '旁白', text: '你從全國科展資料庫下載了去年的得獎作品，逐段比對學生的報告。' },
+    { speaker: '指導老師', text: '（嘆氣）文獻探討幾乎是逐字複製⋯⋯連錯字都一模一樣。' },
+    { speaker: '旁白', text: '你翻到實驗方法那一章。' },
+    { speaker: '指導老師', text: '實驗流程也一樣，只是把「溫度30度」改成「溫度28度」。這已經不是參考了。' },
+    { speaker: '同事', text: '你發現什麼了？臉色很不好看。' },
+    { speaker: '指導老師', text: '我的學生——他的科展作品大量抄襲學長姐已經發表的內容。而且他已經晉級全國賽了。' },
+    { speaker: '同事', text: '哇⋯⋯這很棘手。你打算怎麼處理？' },
+    { speaker: '指導老師', text: '我在想——如果我現在揭發，他會被取消資格，甚至影響大學申請。但如果不處理，他以後會覺得這樣做沒關係。' },
+    { speaker: '同事', text: '你有先跟他談過嗎？搞不好他不知道自己這樣是抄襲。' },
+    { speaker: '指導老師', text: '還沒有攤牌。我想先確認所有證據，想清楚該怎麼做對他最好，也對學術倫理最好。' }
+  ],
+  choices: [
+    {
+      stage1: '嚴格揭發',
+      stage2: [
+        {
+          label: '直接向科教館檢舉',
+          result: '你將完整比對報告提交科教館。科教館迅速啟動調查，確認抄襲屬實，撤銷了該生的全國第一名資格並追回獎金。學生因繁星推薦錄取台大醫學系的資格也被撤銷。你的嚴格贏得了學術界的尊重，但學生的人生從此轉彎。',
+          scores: { ethics: 3, law: 15, judgment: 5, empathy: -10 }
+        },
+        {
+          label: '通報學校，由校方決定處分',
+          result: '你將證據提交校方，由學校召開會議決定處理方式。校方決議取消該生校內科展成績，並通報科教館。學生和家長到校理論，場面一度緊張。學校雖然依法處理，但你與家長的關係變得緊張。',
+          scores: { ethics: 8, law: 12, judgment: 10, empathy: -5 }
+        },
+        {
+          label: '在校務會議上公開討論此案',
+          result: '你在校務會議上提出此案，希望建立全校性的科展倫理規範。然而會議中部分教師認為你「小題大作」、「影響校譽」。討論焦點從倫理轉向公關危機處理，讓你感到失望。',
+          scores: { ethics: 5, law: 8, judgment: 3, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '私下輔導',
+      stage2: [
+        {
+          label: '與學生深談，給他自首的機會',
+          result: '你約談學生，出示比對資料，給他三天考慮是否自行向科展委員會說明。學生在崩潰後接受了你的建議，主動向委員會坦承錯誤。委員會考量他的自首態度，雖然仍取消資格，但未進一步追究法律責任。',
+          scores: { ethics: 12, law: 8, judgment: 12, empathy: 12 }
+        },
+        {
+          label: '要求學生重做並扣分，但不舉報',
+          result: '你讓學生在兩週內重做作品，並承諾不向委員會舉報。學生熬夜趕出新作品，但你心裡清楚這樣做違反了通報義務。三個月後這件事被其他人揭露，你因為知情不報也被追究行政責任。',
+          scores: { ethics: -5, law: -10, judgment: -8, empathy: 10 }
+        },
+        {
+          label: '通知家長，共同輔導',
+          result: '你聯絡了學生的家長，說明情況並邀請他們一起協助孩子面對錯誤。家長一開始很防衛，但看到證據後態度軟化。你們三人一起討論如何處理，學生最終決定面對自己的錯誤。家長事後感謝你沒有直接毀掉孩子的未來。',
+          scores: { ethics: 10, law: 5, judgment: 10, empathy: 15 }
+        }
+      ]
+    },
+    {
+      stage1: '教育轉機',
+      stage2: [
+        {
+          label: '將此案轉為全校倫理教育案例',
+          result: '在取得學生同意並匿名處理後，你將此案整理成一份教材，在全校科展指導教師會議中分享。許多老師表示「自己也從未注意過引用規範」，會議決議建立全校科展的原創性檢核機制。',
+          scores: { ethics: 18, law: 10, judgment: 15, empathy: 12 }
+        },
+        {
+          label: '推動科展作品強制比對制度',
+          result: '你建議教務處引入學術原創性比對軟體，所有科展作品在送件前必須通過比對。你的提案被採納，學校成為全臺第一所在科展中導入比對系統的高中。其他學校也開始跟進。',
+          scores: { ethics: 15, law: 15, judgment: 18, empathy: 8 }
+        },
+        {
+          label: '開設高中生學術倫理入門課程',
+          result: '你向校長提議開設一門「研究倫理與學術誠信」的選修課，內容包括引用規範、資料使用倫理、研究誠信。課程大受歡迎，連沒有參加科展的學生也來選修。你成了校園裡的倫理教育推手。',
+          scores: { ethics: 20, law: 12, judgment: 18, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '科教館認定科展作品違反研究倫理，撤銷全國科展第一名及國際科展四等獎資格，追回獎狀及獎金。台大招生委員會決議撤銷該生經繁星推薦錄取醫學系的資格。'
+});
+</script>
+</body>
+</html>

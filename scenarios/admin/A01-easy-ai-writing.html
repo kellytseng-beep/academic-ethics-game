@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A01 - AI 虛構文獻事件 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A01">
+  <header>
+    <span class="badge" id="scenario-id">A01</span>
+    <span class="badge" id="difficulty">入門</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+
+  <div class="news-sources" id="news-sources"></div>
+
+  <div id="scene-setting">
+    <p>週一早上八點半，你的桌上疊了三份文件。</p>
+    <p>第一封是掛號信——來自一位外部教授的檢舉函，附了詳細的比對資料。</p>
+    <p>第二封是學生的申訴書，承認使用 AI 但請求從輕發落。</p>
+    <p>第三張紙條是秘書留的：「中時記者來電，說想採訪這件事。」</p>
+  </div>
+
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">
+        完整報導請見新聞連結。
+      </p>
+    </div>
+  </div>
+
+  <div id="reflection-area" class="hidden"></div>
+
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A01',
+  role: 'admin',
+  difficulty: '入門',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/8825513' },
+    { name: '三立新聞網', url: 'https://www.setn.com/News.aspx?NewsID=1677047' },
+    { name: '梅花新聞網', url: 'https://www.i-meihua.com/Article/Detail/29094' }
+  ],
+  setting: '週一早上八點半，你的桌上疊了三份文件。第一封是掛號信——來自一位外部教授的檢舉函，附了詳細的比對資料。第二封是學生的申訴書，承認使用 AI 但請求從輕發落。第三張紙條是秘書留的：「中時記者來電，說想採訪這件事。」',
+  dialogues: [
+    { speaker: '旁白', text: '你拿起第一份文件——檢舉函。' },
+    { speaker: '系主任', text: '一位外部學者在全國博碩士論文系統發現，我們一位碩士生的論文引用了他根本沒寫過的文章。' },
+    { speaker: '系主任', text: '他順手查了整份參考文獻——多數查無此文。很明顯是 AI 生成的幽靈文獻。' },
+    { speaker: '秘書', text: '主任，這位教授已經把檢舉函同時發給校長室了。' },
+    { speaker: '旁白', text: '你翻開第二份文件——學生的申訴書。' },
+    { speaker: '系主任', text: '學生承認用了 ChatGPT，但他說「只是輔助整理格式」，不是故意造假⋯⋯' },
+    { speaker: '秘書', text: '他說口試後委員要求他補文獻，時間壓力下才用了 AI。' },
+    { speaker: '系主任', text: '問題是——生成不存在的文獻，這已經超過「輔助整理」的範圍了。這依教育部規定是屬於造假。' },
+    { speaker: '秘書', text: '指導教授那邊也來了消息⋯⋯他說他當時沒有仔細核對文獻，因為看起來格式都對。' },
+    { speaker: '旁白', text: '你拿起第三張紙條。' },
+    { speaker: '秘書', text: '還有，記者打電話來了。他們似乎已經從其他管道得知這件事。' },
+    { speaker: '系主任', text: '⋯⋯同一天來三件事。這不是巧合，是告訴我這件事壓不住了。' },
+    { speaker: '秘書', text: '主任，教務處也在問：我們是不是該全面檢討 AI 使用的規範？' },
+    { speaker: '系主任', text: '讓我先想想——這件事該怎麼處理⋯⋯' }
+  ],
+  choices: [
+    {
+      stage1: '從嚴處置',
+      stage2: [
+        {
+          label: '依學術倫理最高標準，送交校評會',
+          result: '你決定完整啟動校級學術倫理審查程序。委員會召開專案會議，認定該生違反《學術倫理案件處理原則》造假規定。該生論文重寫、口試成績不及格，並須於一年內完成倫理課程方能重提學位考試。記者報導了處分結果，校譽短期受損，但外界肯定你依法處理的態度。',
+          scores: { ethics: 5, law: 15, judgment: 8, empathy: -5 }
+        },
+        {
+          label: '從嚴處分並公開聲明，以昭炯戒',
+          result: '你發出學校公開聲明稿，詳細說明事件經過與處分結果。媒體大幅報導，校譽受到一定影響。學生承受極大社會壓力，甚至有網友肉搜他的個人資料。其他學生也表示「不敢再碰 AI 了」，但你的同事認為這樣的處理缺少教育意義。',
+          scores: { ethics: 0, law: 12, judgment: -3, empathy: -10 }
+        },
+        {
+          label: '同時追究指導教授的監督責任',
+          result: '你認為指導教授也有責任。委員會要求該指導教授書面說明，並加強論文指導責任。教授感到委屈：「我當時真的不知道 AI 可以偽造文獻。」此舉引發系上教師的不安，擔心往後無人願意指導問題學生。最終指導教授未被記過，但被要求參加 AI 增能研習。',
+          scores: { ethics: 3, law: 10, judgment: 5, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '權衡輕重',
+      stage2: [
+        {
+          label: '從輕發落，以補救與教育為主',
+          result: '你主張這是一位初犯，且學生已坦承錯誤。委員會最終決議：論文重寫、學生須在「臺灣學術倫理教育資源中心」通過測驗，並於下次申請學位考試前完成審核。不另記懲處。學生感激涕零，指導教授也鬆了一口氣。但你心裡清楚，這樣處理未來可能被質疑「過於寬容」。',
+          scores: { ethics: 10, law: 3, judgment: 8, empathy: 15 }
+        },
+        {
+          label: '先內部調查，確認事實再決定處分程度',
+          result: '你決定組一個三人調查小組，在兩週內完成事實釐清。調查期間請學生與指導教授完整說明，並還原使用 AI 的具體過程。最終報告區分了「故意造假」與「無知過失」，建議比照教育部規定但酌減處分。這份報告成為系上未來處理類似案例的參考基準。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '請教外部專家意見後再裁決',
+          result: '你打電話請教了兩位他校的教務長和一位法律學者的意見。綜合建議後你決定採取「輕罰個人、重改制度」的方向。學生重寫論文並修課，同時學校成立 AI 使用規範研議小組。你的做法兼顧了個案正義與制度改進。',
+          scores: { ethics: 12, law: 12, judgment: 15, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '制度革新',
+      stage2: [
+        {
+          label: '全面檢討 AI 使用規範，建立明確指引',
+          result: '你召集教務處、研發處、各系所主管成立專案小組，在一個月內擬定全校性的 AI 使用指引。明確區分「可輔助」與「禁止」的範圍，並設計教師增能課程。你的指引後來被其他大學引用為參考範本。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '採購 AI 偵測軟體，建立論文強制比對程序',
+          result: '你主導採購 AI 生成內容比對系統，規定所有學位論文在口試前須通過 AI 檢核。雖然採購預算引起一些討論，但多數教師支持這項措施。此舉被媒體報導為「全臺首批導入 AI 論文偵測的大學之一」。',
+          scores: { ethics: 10, law: 12, judgment: 12, empathy: 3 }
+        },
+        {
+          label: '開設全校 AI 素養必修課程，從根本預防',
+          result: '你推動開設「AI 時代的學術倫理」課程，列為研究所必修。課程內容包括：AI 的原理與限制、正確使用 AI 的方法、學術倫理法規、案例討論。這門課後來成為全校最受歡迎的選修之一，甚至有他校學生旁聽。',
+          scores: { ethics: 20, law: 10, judgment: 15, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '屏東大學：成立調查小組，確認學生違反學術倫理後要求重寫論文，並開設 AI 倫理與應用課程給全校師生。南華大學：口試成績不及格、採購 AI 偵測軟體、發全校信提醒師生審慎使用 AI。兩校皆開始全面檢討 AI 使用政策。葉高華教授呼籲：「AI 資訊來源查核是很重要的一門功夫。」'
+});
+</script>
+</body>
+</html>

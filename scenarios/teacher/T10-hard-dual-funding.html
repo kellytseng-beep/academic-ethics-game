@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T10 - 校長一稿兩投雙邊拿錢 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T10">
+  <header>
+    <span class="badge" id="scenario-id">T10</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>午後研究室的百葉窗篩進斜陽，你剛為自己倒了一杯熱茶，螢幕上那封沒有署名信件的附件——一份詳細的論文比對報告——讓你的手停在半空中。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T10',
+  role: 'teacher',
+  difficulty: '進階',
+  newsSource: [
+    { name: '鏡週刊', url: 'https://www.mirrormedia.mg/story/20260324soc003' },
+    { name: '三立新聞網', url: 'https://setntest.sanlih.com.tw/News.aspx?NewsID=1813156' }
+  ],
+  setting: '午後研究室的百葉窗篩進斜陽，你剛為自己倒了一杯熱茶，螢幕上那封沒有署名信件的附件——一份詳細的論文比對報告——讓你的手停在半空中。',
+  dialogues: [
+    { speaker: '旁白', text: '午後的研究室，你打開一封沒有署名的掛號信。裡面是一份A4紙裝訂好的論文比對報告——檢舉對象是校長。' },
+    { speaker: '教授', text: '（翻閱報告，皺眉）這份比對做得相當完整⋯⋯從表格到統計數字，幾乎全部重疊。' },
+    { speaker: '同事', text: '（敲門進來，面色凝重）你也收到了？' },
+    { speaker: '教授', text: '你也有？' },
+    { speaker: '同事', text: '系上三位資深教授都收到了一模一樣的信。我已經查證過了——校長在中國那篇論文的經費鳴謝欄，同時掛了國科會計畫編號和中國國家自然科學基金。' },
+    { speaker: '教授', text: '一稿兩投還雙邊請款？而且作者簡介寫「安徽霍邱人」、國籍標Taiwan China？' },
+    { speaker: '同事', text: '這就是為什麼這封信會同時寄給三個人——寄件者希望我們不能裝作沒看到。' },
+    { speaker: '教授', text: '校長那邊知道這件事嗎？' },
+    { speaker: '同事', text: '校長辦公室對外的說法是「學術慣例，沒有違規」。但國科會的規定白紙黑字：同一研究成果不得重複發表並重複請領補助。' },
+    { speaker: '教授', text: '（揉眉心）這不只是學術倫理的問題了。這還涉及政府補助款的誠信問題。' },
+    { speaker: '同事', text: '你打算怎麼處理？' },
+    { speaker: '旁白', text: '桌上的茶已經涼了。那份比對報告攤開在你面前，每一頁紅色的標記都在問你同一個問題。' }
+  ],
+  choices: [
+    {
+      stage1: '擱置忽視',
+      stage2: [
+        {
+          label: '當作匿名誣告，不予理會',
+          result: '你告訴同事「這種匿名信不值得認真」，把報告塞進抽屜最深處。一個月後鏡週刊獨家報導了這起案件，記者訪問你時，你只能尷尬地說「不知情」。校譽受損，而你作為資深教授的沉默，成為了學術圈裡的長久話題。',
+          scores: { ethics: -12, law: -8, judgment: -10, empathy: -3 }
+        },
+        {
+          label: '口頭提醒校長「注意一下」就好',
+          result: '你在走廊上輕描淡寫地對校長說「最近有人散佈對你不利的比對資料，你自己注意一下」。校長點點頭說「謝謝」。你以為盡到了責任，但實際上你等同於通風報信，讓校長有時間準備說詞。調查啟動後，你的善意被解讀為包庇。',
+          scores: { ethics: -15, law: -10, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '把報告轉交給校長辦公室，表示「不介入」',
+          result: '你直接將檢舉信轉給校長辦公室，附上一張便條：「有人寄這個到系上，我覺得應該讓你知道。」校長秘書收下了。你自認中立，但在同事眼中，你選擇了站在權力那一邊。往後的學倫討論，沒有人再敢跟你說真話。',
+          scores: { ethics: -10, law: -5, judgment: -8, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '私下處理',
+      stage2: [
+        {
+          label: '約校長喝咖啡，建議他自行撤稿',
+          result: '你約校長在校外商業空間見面，委婉地告訴他「有人在傳這份比對報告，為了大家好，建議你主動撤稿並向國科會說明」。校長感謝你的提醒，一週後撤了中國期刊那篇論文，但國科會仍收到匿名檢舉啟動調查。因為你給了他補救機會，處分相對減輕。',
+          scores: { ethics: 8, law: 5, judgment: 8, empathy: 10 }
+        },
+        {
+          label: '找系主任討論，看校內機制如何處理',
+          result: '你關上系辦公室的門，把報告放在系主任桌上。系主任長嘆一口氣：「這件事我其實三天前就知道了，但我不知道怎麼啟動程序。」你們兩個一起研究校內學倫處理流程，發現規定模糊不清。你的行動促使系主任開始推動修訂校內學倫規範。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '聯絡國科會承辦人試探性詢問',
+          result: '你以「計劃審查遇到類似案例」為由，打電話給國科會承辦人詢問一稿兩投的認定標準。承辦人很熱心地解釋了規定，並暗示「最近確實有相關案件在處理中」。你大致掌握了官方的態度，回學校後更能判斷該如何處理。',
+          scores: { ethics: 5, law: 10, judgment: 10, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '正式通報',
+      stage2: [
+        {
+          label: '將報告提交校學術倫理委員會',
+          result: '你正式具文將檢舉報告送交校學術倫理委員會，請求立案調查。委員會召開秘密會議後決定受理。校長被迫在調查期間迴避行政職務。雖然校內氣氛緊繃，但你的行動捍衛了制度的尊嚴。',
+          scores: { ethics: 18, law: 15, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '連署資深教授要求校長出面說明',
+          result: '你聯繫另外兩位也收到報告的教授，三人聯名發信給校長，要求他就論文重複發表與經費問題提出書面說明。校長一週後發了全校信，承認「行政疏失」但否認故意違規。你的連署讓事件進入正式討論程序，也讓其他教授看到團結的力量。',
+          scores: { ethics: 15, law: 12, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '同時通報教育部與國科會',
+          result: '你認為校內機制可能受到校長權力干擾，決定直接將完整報告分別送交教育部和國科會。兩機關隨即啟動聯合調查。你被部分同事批評「越級報告」，但更多年輕人私下感謝你有勇氣打破沈默。調查結果出爐後，校長被記大過並免除校長職務。',
+          scores: { ethics: 20, law: 18, judgment: 20, empathy: 10 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台中科技大學校長陳同孝遭鏡週刊踢爆論文一稿兩投，同時向國科會申請近600萬元補助與中國國家自然科學基金。在中國期刊發表時自稱「中國安徽霍邱人」、國籍標註Taiwan China。國科會已依《學術倫理案件處理原則》啟動調查，校方表示將配合辦理。'
+});
+</script>
+</body>
+</html>

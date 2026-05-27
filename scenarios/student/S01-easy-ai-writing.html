@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01 - AI 虛構文獻事件 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S01">
+  <header>
+    <span class="badge" id="scenario-id">S01</span>
+    <span class="badge" id="difficulty">入門</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+
+  <div class="news-sources" id="news-sources"></div>
+
+  <div id="scene-setting">
+    <p>午後。系辦公室窗簾半掩，桌上一杯早已涼透的茶。</p>
+    <p>你的論文被翻到參考文獻那一頁，上頭被紅筆圈了好幾處。</p>
+    <p>教授坐在你對面，桌上還放著一封已經拆封的掛號信。</p>
+  </div>
+
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">
+        完整報導請見新聞連結。
+      </p>
+    </div>
+  </div>
+
+  <div id="reflection-area" class="hidden"></div>
+
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S01',
+  role: 'student',
+  difficulty: '入門',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/8825513' },
+    { name: '三立新聞網', url: 'https://www.setn.com/News.aspx?NewsID=1677047' }
+  ],
+  setting: '午後。系辦公室窗簾半掩，桌上一杯早已涼透的茶。你的論文被翻到參考文獻那一頁，上頭被紅筆圈了好幾處。教授坐在你對面，桌上還放著一封已經拆封的掛號信。',
+  dialogues: [
+    { speaker: '教授', text: '你知道我為什麼找你來嗎？' },
+    { speaker: '學生', text: '⋯⋯⋯⋯（不發一語）' },
+    { speaker: '教授', text: '有一位外部學者在查全國博碩士論文系統的時候，發現你的論文引用了一篇他根本沒寫過的文章。' },
+    { speaker: '教授', text: '他順手查了你整份參考文獻，結果大部分都是不存在的——標題很漂亮、作者名字也對，但查無此文。' },
+    { speaker: '教授', text: '這種東西，不是用手工一個一個打的——這是生成式 AI 的典型產出。' },
+    { speaker: '教授', text: '你是不是用了 AI 來生參考文獻？' },
+    { speaker: '學生', text: '我⋯⋯口試後委員說我文獻不夠，要我補一些⋯⋯' },
+    { speaker: '學生', text: '我想說 ChatGPT 很方便，就請它生了一些參考文獻出來⋯⋯' },
+    { speaker: '教授', text: '你沒有查證這些文獻是不是真的存在？' },
+    { speaker: '學生', text: '我以為 ChatGPT 給的資料都是真的⋯⋯' },
+    { speaker: '教授', text: '這件事情已經被正式檢舉到學校了。依教育部《專科以上學校學術倫理案件處理原則》，這屬於「造假——虛構不存在之研究資料」。' },
+    { speaker: '教授', text: '你現在有什麼想說的嗎？' }
+  ],
+  choices: [
+    {
+      stage1: '否認到底',
+      stage2: [
+        {
+          label: '堅稱文獻是手動整理的，是教授誤判',
+          result: '你堅持自己沒有使用 AI，聲稱那些文獻是自己一篇一篇從資料庫找的。教授請你當場開啟搜尋歷程給我看——你拿不出來。教授的臉色越來越凝重。最終，系上召開學術倫理委員會，因為你未能誠實面對，加重處分：論文重寫且須延畢一年。',
+          scores: { ethics: -12, law: -8, judgment: -10, empathy: -8 }
+        },
+        {
+          label: '把責任推給 ChatGPT，說自己只是「輔助使用」',
+          result: '你強調「我只是叫 AI 幫忙整理格式」，但教授指出你的參考文獻超過八成是憑空捏造的，早已超出「輔助」的範圍。系上認定你未善盡查核責任，論文須重寫，並須修習學術倫理課程。',
+          scores: { ethics: -8, law: -5, judgment: -5, empathy: -3 }
+        },
+        {
+          label: '低頭沉默，不正面回應',
+          result: '你選擇不說話。教授等了一陣子後說：「我給你去思考，明天再談。」但你的沉默被委員會解讀為缺乏悔意。最終處分仍維持論文重寫，且須在倫理課程中通過測驗。',
+          scores: { ethics: -5, law: -3, judgment: -8, empathy: -5 }
+        }
+      ]
+    },
+    {
+      stage1: '協商補救',
+      stage2: [
+        {
+          label: '承認用 AI，但強調只是「整理格式」',
+          result: '你承認用了 AI，但不斷強調自己只是「請它幫忙整理文獻格式」，不是刻意造假。教授指出生成不存在的內容已經不是格式問題。系上決議：你的論文須重寫，但考量你有部分誠意，不另外記過。',
+          scores: { ethics: 0, law: -2, judgment: 3, empathy: 2 }
+        },
+        {
+          label: '承認錯誤，請求一次補救機會',
+          result: '你坦承使用了 AI，也承認自己沒有查證。教授嘆了一口氣說：「我欣賞你願意承認，但後果還是要面對。」系上要求你重寫論文、修習學術倫理課程，並在下次提案前先通過指導教授的審核。你保住了學籍，但進度延後了一個學期。',
+          scores: { ethics: 8, law: 5, judgment: 10, empathy: 8 }
+        },
+        {
+          label: '找指導教授來幫忙說情',
+          result: '你私底下聯絡指導教授，請他幫忙向系上說情。指導教授得知後也頗為尷尬——他承認自己當初沒有仔細檢查你的文獻。雖然他願意幫你說話，但此舉讓委員會對你們師生兩人都產生疑慮。最終你仍須重寫論文，而指導教授也被要求加強論文審查責任。',
+          scores: { ethics: -5, law: -3, judgment: -5, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '坦誠面對',
+      stage2: [
+        {
+          label: '全盤坦承，誠心道歉',
+          result: '你深吸一口氣，完整說明了整個過程：如何因為時間壓力、如何請 ChatGPT 生成文獻、如何心存僥倖沒有查證。教授聽完後沉默了一陣。系上最終決議：論文重寫、修習學術倫理課程，但認定你態度誠實，不另記行政處分。這是一個有代價但保留了尊嚴的結果。',
+          scores: { ethics: 15, law: 10, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '坦承錯誤，主動提出願意重寫論文',
+          result: '你不僅承認錯誤，還主動向教授和系上提出：「請給我機會重寫這份論文，我會用正確的方式重新完成它。」這份態度讓委員會對你刮目相看。處分維持論文重寫與修課，但教授在委員會中為你說了話，最終記錄上只註記為「學術倫理研習」，不留正式懲處紀錄。',
+          scores: { ethics: 18, law: 12, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '坦承錯誤，願意接受校方任何處分，並請求修習倫理課程',
+          result: '你完全放下了防衛：「我做錯了，我會承擔所有後果，也請學校讓我有機會重新學習學術倫理。」這份態度讓在場的人都動容。委員會決議從輕發落：論文重寫、完成學術倫理課程即可，不留懲處紀錄。教授後來告訴你：「誠實，是你做過最好的選擇。」',
+          scores: { ethics: 20, law: 15, judgment: 15, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '屏東大學要求該生重寫論文，並修習學術倫理課程。校方同時全面檢討 AI 使用政策，開設 AI 倫理課程給師生。南華大學則將該生論文口試成績判定為「不及格」，要求重寫，並採購 AI 生成內容偵測軟體，未來所有論文在口試前均需通過 AI 比對。'
+});
+</script>
+</body>
+</html>

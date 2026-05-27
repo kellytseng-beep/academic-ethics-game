@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A02 - 台師大女足抽血換學分 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A02">
+  <header>
+    <span class="badge" id="scenario-id">A02</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>校長室會議桌上攤開三份文件：學生的申訴書、教練的說明報告、以及一份媒體的採訪通知。窗外天空灰濛，落地窗映出你疲憊的倒影。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A02',
+  role: 'admin',
+  difficulty: '中級',
+  newsSource: [
+    { name: '三立新聞網', url: 'https://www.setn.com/News.aspx?NewsID=1690552' }
+  ],
+  setting: '校長室會議桌上攤開三份文件：學生的申訴書、教練的說明報告、以及一份媒體的採訪通知。窗外天空灰濛，落地窗映出你疲憊的倒影。',
+  dialogues: [
+    { speaker: '秘書', text: '主任，學務處轉來一份申訴。女足隊員指控教練要求抽血，不從會影響學期成績。' },
+    { speaker: '系主任', text: '（接過文件翻閱）「不參加研究就沒有學分」⋯⋯這已經涉及權力不對等的強迫了。' },
+    { speaker: '秘書', text: '學生說教練在練習後私下找她，桌上直接放著同意書和採血管。' },
+    { speaker: '系主任', text: '這違反《人體研究法》第十二條——研究參與必須完全自願，不得以任何形式強迫。' },
+    { speaker: '秘書', text: '還有更嚴重的⋯⋯教務處說這項研究似乎沒有通過IRB審查。' },
+    { speaker: '系主任', text: '（臉色一沉）沒有IRB就收案？這不只是違反校規，這是違法。' },
+    { speaker: '秘書', text: '研究主持人是校外的教授，但收案地點在我們學校。媒體記者也打電話來了。' },
+    { speaker: '系主任', text: '（長嘆）這下麻煩了。不只是校內問題——教育部、衛福部都可能介入。而且國際期刊那邊⋯⋯' },
+    { speaker: '秘書', text: '主任，教練那邊也在到處打電話，希望學校「低調處理」。' },
+    { speaker: '系主任', text: '低調？涉及人體研究的違規，不可能低調。問題是——我們該怎麼處理才對得起學生，也對得起制度。' }
+  ],
+  choices: [
+    {
+      stage1: '息事寧人',
+      stage2: [
+        {
+          label: '內部告誡教練，不對外公開',
+          result: '你找教練來「喝咖啡」，口頭告誡以後不能再這樣做。教練滿口答應，你以為事情過去了。但一個月後媒體取得內部文件，大幅報導學校「包庇」。教育部要求專案報告，校譽受損遠比當初公開處理更嚴重。',
+          scores: { ethics: -12, law: -10, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '要求教練私下與學生和解',
+          result: '你讓教練私下找學生「溝通」，承諾不會影響成績，希望學生撤銷申訴。學生在壓力下同意了，但其他知情者將消息透露給媒體。記者以「校方施壓學生封口」為標題報導，輿論一片撻伐。',
+          scores: { ethics: -15, law: -12, judgment: -10, empathy: -8 }
+        },
+        {
+          label: '以「學術自由」為由輕放',
+          result: '你主張研究屬學術自由範疇，不應以行政手段干預。此說法被倫理委員會駁回，因為《人體研究法》位階高於校規。教育部發文糾正，要求學校限期改善研究倫理審查制度，你個人也因失職被記申誡。',
+          scores: { ethics: -10, law: -15, judgment: -12, empathy: -8 }
+        }
+      ]
+    },
+    {
+      stage1: '依法調查',
+      stage2: [
+        {
+          label: '組成校內調查小組，暫停研究計畫',
+          result: '你立即召集教務、研發、學務三處成立調查小組，暫停該研究計畫。兩週內完成訪談並確認違規屬實。調查報告送交校教評會，啟動教師評議程序。過程嚴謹，雖有媒體關注但學校掌握了話語權。',
+          scores: { ethics: 12, law: 15, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '通報教育部與衛福部，請求指導',
+          result: '你主動將案件通報教育部和衛福部，請求上級指導處理方式。兩部會肯定學校的態度，派遣專員協助調查。雖然外界因此知道事態嚴重，但學校的透明作法贏得學術界的尊重。',
+          scores: { ethics: 15, law: 18, judgment: 15, empathy: 10 }
+        },
+        {
+          label: '同時啟動學生輔導與關懷機制',
+          result: '你在調查過程中同步啟動受影響學生的輔導機制，安排心理師為被抽血的學生提供諮商。此舉讓學生感受到學校的關心，多位學生在後續訪談中願意提供完整證詞，加速了調查進度。',
+          scores: { ethics: 18, law: 12, judgment: 12, empathy: 18 }
+        }
+      ]
+    },
+    {
+      stage1: '制度改革',
+      stage2: [
+        {
+          label: '全面檢討人體研究審查流程',
+          result: '你主導全面檢討校內IRB審查流程，建立「先審後收」的強制規定，並增設體育運動研究類別的審查委員。新制上路後，全校的研究倫理意識大幅提升，半年內沒有再發生違規收案。',
+          scores: { ethics: 18, law: 18, judgment: 20, empathy: 12 }
+        },
+        {
+          label: '建立教師研究倫理強制研習制度',
+          result: '你規定所有主持研究計畫的教師必須完成研究倫理研習，否則無法請領經費。雖然部分教師抱怨增加行政負擔，但一年後違規案件顯著減少。你的制度被教育部列為標竿案例。',
+          scores: { ethics: 15, law: 15, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '制定「學生研究參與權利保障辦法」',
+          result: '你起草了一份專屬學生的研究參與權利保障辦法，明確禁止教師以成績、畢業條件等誘迫學生參與研究，並設立匿名申訴管道。這份辦法經校務會議通過，成為全國首例。',
+          scores: { ethics: 20, law: 18, judgment: 18, empathy: 18 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台師大校教評會決議解聘周台英教練，4年內不得聘任。研究主持人陳忠慶公開道歉。國際期刊《運動科學與醫學》確認論文違反人體研究倫理與《赫爾辛基宣言》，於2025年9月正式撤稿。教育部與衛福部、國科會組成專案小組調查。'
+});
+</script>
+</body>
+</html>

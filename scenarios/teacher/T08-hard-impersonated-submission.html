@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T08 - 中正教授遭冒名投稿 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T08">
+  <header>
+    <span class="badge" id="scenario-id">T08</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>中正大學教授研究室，深夜。桌上散落著期刊審稿資料，手機螢幕亮著Elsevier寄來的撤稿通知——上面寫著你從未投稿過的論文被舉報抄襲。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T08',
+  role: 'teacher',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中時新聞網', url: 'https://www.chinatimes.com/realtimenews/20250930003921-260405' },
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/9038803' }
+  ],
+  setting: '中正大學教授研究室，深夜。桌上散落著期刊審稿資料，手機螢幕亮著Elsevier寄來的撤稿通知——上面寫著你從未投稿過的論文被舉報抄襲。',
+  dialogues: [
+    { speaker: '旁白', text: '你是中正大學電機系教授。剛打開信箱，看到Elsevier的撤稿通知——說你一篇論文被檢舉抄襲，已予撤稿。但你從未投稿過這篇論文。' },
+    { speaker: '教授', text: '（不可置信）撤稿⋯⋯？我這幾個月根本沒有投任何論文到Elsevier。' },
+    { speaker: '教授', text: '（仔細讀信）「經舉報，您於Elsevier投稿之論文涉及抄襲⋯⋯目前已予撤稿。」這篇論文我連看都沒看過！' },
+    { speaker: '同事', text: '你說什麼？有人用你的名字投稿？' },
+    { speaker: '教授', text: '對。用的不是我的學校信箱，是一個gmail。而且內容是抄襲的——有人故意掛我的名字來投稿。' },
+    { speaker: '同事', text: '這太惡劣了。你長期在檢舉論文抄襲，會不會是得罪了人，對方想用這種方式報復？' },
+    { speaker: '教授', text: '很有可能。我這幾年檢舉過不少 questionable 的論文。有人想用冒名投稿來毀我名聲，讓我以後講話沒人信。' },
+    { speaker: '同事', text: '你打算怎麼處理？要大動作反擊嗎？' },
+    { speaker: '教授', text: '我需要想清楚。這不只是我個人的事，還牽涉到整個學術投稿系統的漏洞。' }
+  ],
+  choices: [
+    {
+      stage1: '全面公開與法律行動',
+      stage2: [
+        {
+          label: '同時通知校方、期刊與報警',
+          result: '你連夜寫信給校方、Elsevier主編，並向轄區分局報案。三方同時啟動：校方成立調查小組、期刊調閱投稿IP記錄、警方受理偽造文書案。你雖然承受極大壓力，但正面迎擊讓冒名者無所遁形。',
+          scores: { ethics: 15, law: 18, judgment: 10, empathy: 3 }
+        },
+        {
+          label: '發正式聲明公開譴責此行為',
+          result: '你在個人學術網站發表聲明，譴責冒名投稿行為並還原真相。學界朋友紛紛轉發聲援，你獲得廣泛支持。但公開聲明也讓部分媒體過度聚焦於「抄襲」二字，模糊了「冒名」的重點。',
+          scores: { ethics: 12, law: 8, judgment: 5, empathy: 3 }
+        },
+        {
+          label: '在社群媒體發文公審',
+          result: '你在臉書情緒性地發文指控有人惡意報復，雖獲得大量同情的留言，但缺乏完整證據的發言被截圖流傳。部分學者批評你未審先判，反而削弱了你後續正式申訴的公信力。',
+          scores: { ethics: -5, law: -8, judgment: -10, empathy: 0 }
+        }
+      ]
+    },
+    {
+      stage1: '低調但強硬處理',
+      stage2: [
+        {
+          label: '私下要求期刊完整調查並保留追溯權',
+          result: '你冷靜地寫了一封正式信函給Elsevier主編，說明遭冒名經過，要求徹查投稿者身分並保留法律追溯權。主編非常重視，承諾內部調查。事後Elsevier強化了投稿信箱驗證機制。',
+          scores: { ethics: 10, law: 12, judgment: 15, empathy: 5 }
+        },
+        {
+          label: '透過學術人脈請Elsevier加強驗證',
+          result: '你利用擔任editor的人脈，向Elsevier建議在投稿系統中加入作者身分雙重驗證。你的建議被採納，成為平台安全機制升級的契機。個人損失換來制度改進。',
+          scores: { ethics: 12, law: 8, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '息事寧人，只求撤稿不追究',
+          result: '你覺得多一事不如少一事，寫信給期刊說「撤稿就好，我不追究」。期刊照辦了，但你沒有留下任何正式紀錄。幾個月後同樣手法再次出現，這次冒用的是另一位教授的名字。',
+          scores: { ethics: -5, law: -10, judgment: -8, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '以制度改革為目標',
+      stage2: [
+        {
+          label: '藉此事件倡議建立投稿雙重驗證',
+          result: '你在國內學術倫理研討會上以自身案例發表專題演講，呼籲各大期刊社導入投稿者身分雙重驗證機制。你的故事打動許多人，國科會後續發文建議各期刊跟進。',
+          scores: { ethics: 18, law: 12, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '聯合其他曾被冒名的學者共同發聲',
+          result: '你透過學術網絡找到數位也曾被冒名投稿的學者，集體向國際出版倫理委員會提出制度建議。聯名信獲得COPE正式回應，你的領導力讓一個人的受害變成眾人的防禦。',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '在校內推動教師著作監控系統',
+          result: '你與研發處合作，在校內建立一套教師著作自動監控系統，定期掃描Scopus與WoS中掛名本校教師的新發表。系統上路後，半年內又發現兩起冒名通報。',
+          scores: { ethics: 18, law: 12, judgment: 15, empathy: 10 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '中正大學電機系教授遭人冒名將抄襲文章投稿至Elsevier期刊。投稿者使用非學術信箱，期刊接獲檢舉後已撤稿。校方懷疑因教授長期揭露論文抄襲而遭報復，要求期刊協助調查冒名者身分。'
+});
+</script>
+</body>
+</html>

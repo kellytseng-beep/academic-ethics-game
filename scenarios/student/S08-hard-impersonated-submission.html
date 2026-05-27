@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S08 - 中正教授遭冒名投稿 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S08">
+  <header>
+    <span class="badge" id="scenario-id">S08</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>中正大學電機系研究室，午後陽光透過百葉窗斜射進來。電腦螢幕上開啟著Elsevier的投稿確認信，游標停在可疑的「通訊作者信箱」欄位——那不是教授的學術信箱。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S08',
+  role: 'student',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中時新聞網', url: 'https://www.chinatimes.com/realtimenews/20250930003921-260405' },
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/9038803' }
+  ],
+  setting: '中正大學電機系研究室，午後陽光透過百葉窗斜射進來。電腦螢幕上開啟著Elsevier的投稿確認信，游標停在可疑的「通訊作者信箱」欄位——那不是教授的學術信箱。',
+  dialogues: [
+    { speaker: '旁白', text: '你是一位電機系研究所學生。今天在查詢教授近期發表的論文時，發現Elsevier資料庫中有一篇署名教授的新文章，但聯絡方式完全不對。' },
+    { speaker: '你', text: '奇怪⋯⋯教授什麼時候投了這篇？我昨天才跟他討論過投稿計畫，完全沒聽他提過。' },
+    { speaker: '你', text: '（仔細檢查）等等——通訊作者的信箱不是教授的ccu.edu.tw，而是一個gmail帳號？' },
+    { speaker: '同學', text: '怎麼了？你臉色很糟。' },
+    { speaker: '你', text: '你過來看這個。這篇論文掛著教授的名字，但聯絡信箱是gmail。而且我隨便拉了兩段丟進比對系統——根本是抄襲的。' },
+    { speaker: '同學', text: '天啊⋯⋯這是有人冒用教授的名字投稿？這種事我只有在學術倫理課堂上聽過。' },
+    { speaker: '你', text: '必須讓教授知道。但我在想，是要直接衝去他辦公室，還是先整理好所有證據再說⋯⋯' }
+  ],
+  choices: [
+    {
+      stage1: '立即通報教授',
+      stage2: [
+        {
+          label: '整理完整證據當面報告',
+          result: '你將抄襲比對報告、可疑信箱截圖、投稿時間線全部印出來，敲響教授辦公室的門。教授從震驚到嚴肅，感謝你及時告知，立刻打電話給期刊主編啟動調查。你成為這個案件最重要的協助者。',
+          scores: { ethics: 12, law: 8, judgment: 10, empathy: 5 }
+        },
+        {
+          label: '寄email附上連結與截圖',
+          result: '你寫了一封措辭謹慎的email給教授，附上所有連結和截圖。教授回信感謝你的提醒，但他當天會議很多，沒有立刻處理。等到他兩天後打開連結時，期刊已收到其他檢舉。你錯過了黃金通報時間。',
+          scores: { ethics: 8, law: 5, judgment: 3, empathy: 3 }
+        },
+        {
+          label: '先告訴助教讓助教轉達',
+          result: '你覺得直接找教授壓力太大，先告訴了實驗室助教。助教說「我會處理」，但一週過去了沒有下文。教授從其他人那裡輾轉聽說此事時，對你沒有直接告訴他感到些許失望。',
+          scores: { ethics: 3, law: 0, judgment: -3, empathy: 5 }
+        }
+      ]
+    },
+    {
+      stage1: '私下深入查證',
+      stage2: [
+        {
+          label: '逐段比對論文抄襲來源',
+          result: '你花了四小時逐段比對，找到原文出處，製作了一份精確的抄襲對照表。當你把這份資料交給教授時，他非常驚訝於你的細心和專業。這份對照表後來成為校方調查的關鍵附件。',
+          scores: { ethics: 8, law: 5, judgment: 15, empathy: 3 }
+        },
+        {
+          label: '嘗試查詢gmail帳號來源',
+          result: '你試圖搜尋該gmail的網路足跡，但google不公開帳號資訊。你在幾個論壇上發現疑似同一個帳號在其他學術領域的可疑足跡，但資訊零碎無法確認。線索中斷，徒勞無功。',
+          scores: { ethics: 3, law: 3, judgment: 5, empathy: 0 }
+        },
+        {
+          label: '在Lab群組發文請大家協助辨識',
+          result: '你在群組貼出論文連結和疑問，希望大家幫忙看看。群組立刻炸開，有人截圖轉發到其他群組，消息迅速擴散。教授從別人那裡聽說後很不高興——你讓消息在未經確認前就走漏了。',
+          scores: { ethics: -5, law: -3, judgment: -8, empathy: 0 }
+        }
+      ]
+    },
+    {
+      stage1: '與師長商議再行動',
+      stage2: [
+        {
+          label: '找一位信任的副教授請教',
+          result: '你找了系上一位你信任的副教授，關上門給他看所有資料。對方沉吟片刻後說：「你做得對，這事不能壓。我陪你一起去找教授。」有前輩陪同，你感到踏實許多。',
+          scores: { ethics: 12, law: 8, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '寫信給研發處學術倫理辦公室',
+          result: '你匿名寫信向研發處學術倫理辦公室通報，提供所有客觀資訊。研發處回覆表示會處理，但由於是匿名通報，無法請你補充更多細節。調查進度緩慢，你無從得知後續。',
+          scores: { ethics: 10, law: 8, judgment: 5, empathy: 3 }
+        },
+        {
+          label: '先跟父母或朋友訴苦',
+          result: '你和家人朋友討論這件事，他們很關心但對學術體系不了解，只能勸你「不要管太多，保護自己比較重要」。你獲得了情感支持，但沒有實質行動。問題仍在原地。',
+          scores: { ethics: 0, law: 0, judgment: -3, empathy: 5 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '中正大學電機系教授遭人冒名將抄襲文章投稿至Elsevier期刊。投稿者使用非學術信箱（gmail），期刊接獲檢舉後已撤稿。校方懷疑因教授長期揭露論文抄襲而遭報復，要求期刊協助調查冒名者身分。'
+});
+</script>
+</body>
+</html>

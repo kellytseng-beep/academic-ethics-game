@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A04 - 警大校長論文抄襲 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A04">
+  <header>
+    <span class="badge" id="scenario-id">A04</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>校長室會議室，窗外飄著細雨。長桌上擺著一份碩士論文、一份研究報告、一份AI比對報告，以及三份來自不同媒體的採訪通知。空氣中充滿沉重的沉默。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A04',
+  role: 'admin',
+  difficulty: '中級',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6885/8922659' },
+    { name: 'TVBS', url: 'https://news.tvbs.com.tw/local/2952866' }
+  ],
+  setting: '校長室會議室，窗外飄著細雨。長桌上擺著一份碩士論文、一份研究報告、一份AI比對報告，以及三份來自不同媒體的採訪通知。空氣中充滿沉重的沉默。',
+  dialogues: [
+    { speaker: '旁白', text: '你是警大的行政主管。今天一早，社群平台「靠北Police」的爆料截圖在校內群組瘋傳，各媒體記者已經開始打電話來。' },
+    { speaker: '公關主任', text: '報告，目前有三家媒體要求採訪。聯合報、TVBS和中時都說在等我們回應。教育部也來了公文。' },
+    { speaker: '學務長', text: '論文比對結果出來了。AI偵測文字重疊率45.07%，連續相同的頁面有14頁。' },
+    { speaker: '教務長', text: '問題是—我們的學倫處理辦法規定，校友涉嫌違反學倫也可以受理。黃校長雖然是校友，但現在是校長⋯⋯' },
+    { speaker: '公關主任', text: '媒體就是衝著「校長」兩個字來的。如果我們冷處理，他們一定會說我們包庇。' },
+    { speaker: '學務長', text: '但如果啟動調查，對象是現任校長⋯⋯這在校史上沒有前例。而且他上任才不到一週。' },
+    { speaker: '教務長', text: '法律上很明確。《學術倫理案件處理要點》沒有排除校長。問題是行政上怎麼執行。' },
+    { speaker: '公關主任', text: '教育部說會尊重我們的自律機制。但前提是我們真的啟動自律機制，而不是⋯⋯把它藏起來。' },
+    { speaker: '旁白', text: '所有人看著你。你是這個會議室裡最有權力決定下一步的人。外面的雨越下越大。' }
+  ],
+  choices: [
+    {
+      stage1: '被動止血',
+      stage2: [
+        {
+          label: '對外聲明「論文具獨創性」並結案',
+          result: '你以「論文與研究案研究對象不同、訪談結果不同」為由，對外發布聲明稿強調論文具獨創性，並宣布此案已釐清。媒體會後挖出更多比對細節，窮追不捨。一週後教育部發文要求補充說明，事件愈演愈烈。',
+          scores: { ethics: -10, law: -8, judgment: -5, empathy: -5 }
+        },
+        {
+          label: '要求爆料者提出身分再受理',
+          result: '你援引學倫處理要點，要求爆料者提供真實姓名和聯絡方式才受理。爆料者不願曝光，案件形式上不受理。但媒體報導「警大以程序技術性阻擋調查」，輿論更加不利。半年後立委質詢時再次提起此事。',
+          scores: { ethics: -12, law: -5, judgment: -8, empathy: -8 }
+        },
+        {
+          label: '說服校長自行請辭，低調落幕',
+          result: '你私下建議校長「為避免學校困擾，暫時請辭」。校長考慮後同意，發布辭職聲明，事件暫時平息。但學術界批評學校沒有釐清事實就讓校長走人，學倫調查半途而廢。你雖解決了燃眉之急，卻失去了制度公信。',
+          scores: { ethics: -8, law: -5, judgment: -5, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '依法調查',
+      stage2: [
+        {
+          label: '依學倫要點啟動正式調查',
+          result: '你決議依《學術倫理案件處理要點》啟動正式調查，組成三人調查小組，成員包含校外專家。調查程序公開透明，每週發布進度說明。雖然過程痛苦，但學校掌握了話語權，媒體報導轉為中性。',
+          scores: { ethics: 12, law: 15, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '同步通報教育部並請求指導',
+          result: '你主動通報教育部，並請求學術倫理專案辦公室提供調查程序指導。部方肯定學校的處理態度。外部專家參與讓調查更具公信力。最終調查報告送交學倫會審議，程序完備無可挑剔。',
+          scores: { ethics: 15, law: 18, judgment: 15, empathy: 10 }
+        },
+        {
+          label: '暫停校長行政職務配合調查',
+          result: '為確保調查公正，你建議校長在調查期間暫停行政職務。校長同意。此舉展現了學校對學倫的尊重，媒體普遍給予正面評價。雖然行政運作不便，但制度的威嚴因此確立。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 12 }
+        }
+      ]
+    },
+    {
+      stage1: '制度改革',
+      stage2: [
+        {
+          label: '全面檢討學倫處理辦法漏洞',
+          result: '你主導修訂校內學術倫理處理辦法，明定「現任校長及一級主管涉案時，調查委員會應全部由校外專家組成」的條款。新辦法經校務會議通過，成為全國警專院校的參考範本。制度因此次危機而更加完善。',
+          scores: { ethics: 18, law: 18, judgment: 20, empathy: 12 }
+        },
+        {
+          label: '建立論文比對強制送審制度',
+          result: '你規定所有碩博士論文在口試前必須通過論文比對系統檢測，且比對報告要隨論文送審。這項政策雖然引發部分師生反彈，但一年後實施成效顯著。你證明制度設計可以從源頭減少爭議。',
+          scores: { ethics: 15, law: 15, judgment: 18, empathy: 8 }
+        },
+        {
+          label: '舉辦全國警學研討會討論學倫',
+          result: '你邀請全國警察院校舉辦一場「學術倫理與警察教育」研討會，公開討論此案的教訓。活動吸引了上百人參與，會後發表共同宣言，呼籲警學界建立更高的學術誠信標準。你將一場危機轉化為改革契機。',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '警大新任校長黃明昭遭爆2004年碩士論文與指導教授謝文彥的研究案高度雷同，AI比對重疊率達45%，14頁內容連續複製貼上一字不改。警大回應聲稱論文「具有獨創性」，研究對象、樣本、訪談結果均與研究案不同。此案依警大學術倫理處理要點規定程序辦理。'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設定 — 學術倫理遊戲</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <span class="badge" id="scenario-id" style="background:#6a6a6a;">設定</span>
+    <a href="index.html" class="home-link">← 回大廳</a>
+  </header>
+
+  <h2 style="margin:20px 0 8px;color:var(--primary);">反省提交設定</h2>
+  <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:20px;">
+    每關結束後學生寫的反省，會隱藏 POST 到 Google 表單，直接存入你的 Google Sheets。
+  </p>
+
+  <form class="settings-form" id="settings-form">
+    <label for="submit-method">提交方式</label>
+    <select id="submit-method">
+      <option value="gform">Google 表單（隱藏 POST）</option>
+      <option value="local">僅儲存於本機 (localStorage)</option>
+    </select>
+
+    <h3 style="margin:24px 0 8px;font-size:1rem;color:var(--primary);">Google 表單設定</h3>
+
+    <label for="gform-id">表單 ID</label>
+    <input type="text" id="gform-id" placeholder="1FAIpQLS...">
+
+    <label for="entry-scenario">關卡編號 Entry ID</label>
+    <input type="text" id="entry-scenario" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-role">角色 Entry ID</label>
+    <input type="text" id="entry-role" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-ethics">倫理分數 Entry ID</label>
+    <input type="text" id="entry-ethics" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-law">法規分數 Entry ID</label>
+    <input type="text" id="entry-law" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-judgment">判斷分數 Entry ID</label>
+    <input type="text" id="entry-judgment" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-empathy">同理心分數 Entry ID</label>
+    <input type="text" id="entry-empathy" placeholder="entry.xxxxxxxxx">
+
+    <label for="entry-reflection">反省欄位 Entry ID</label>
+    <input type="text" id="entry-reflection" placeholder="entry.xxxxxxxxx">
+
+    <button type="submit" class="btn-primary" style="margin-top:20px;">儲存設定</button>
+  </form>
+
+  <div id="save-status" style="margin-top:12px;font-size:0.9rem;"></div>
+</div>
+
+<script src="game-engine.js"></script>
+<script>
+(function() {
+  // 1. Merge existing settings with defaults (fill missing entry IDs)
+  const defaults = {
+    submitMethod: 'gform',
+    gformId: '1FAIpQLScOx88fV2wGgoe5UmoRLenL40FbaSuur-zY4BMDIFp-6beDVg',
+    entryScenario: 'entry.715082397',
+    entryRole: 'entry.664643676',
+    entryEthics: 'entry.1599333729',
+    entryLaw: 'entry.1103992364',
+    entryJudgment: 'entry.366727594',
+    entryEmpathy: 'entry.1657153655',
+    entryReflection: 'entry.169908853'
+  };
+  const existing = AEG.State.getSettings();
+  const merged = {};
+  for (const key of Object.keys(defaults)) {
+    merged[key] = (existing[key] && existing[key].toString().startsWith('entry.')) ? existing[key] : defaults[key];
+  }
+  // 2. Auto-save merged settings
+  AEG.State.setSettings(merged);
+  // 3. Populate form
+  document.getElementById('submit-method').value = merged.submitMethod;
+  document.getElementById('gform-id').value = merged.gformId;
+  document.getElementById('entry-scenario').value = merged.entryScenario;
+  document.getElementById('entry-role').value = merged.entryRole;
+  document.getElementById('entry-ethics').value = merged.entryEthics;
+  document.getElementById('entry-law').value = merged.entryLaw;
+  document.getElementById('entry-judgment').value = merged.entryJudgment;
+  document.getElementById('entry-empathy').value = merged.entryEmpathy;
+  document.getElementById('entry-reflection').value = merged.entryReflection;
+  document.getElementById('save-status').textContent = '✅ 已自動載入表單設定';
+  document.getElementById('save-status').style.color = '#3a9d5e';
+  // 4. Manual save
+  document.getElementById('settings-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    AEG.State.setSettings({
+      submitMethod: document.getElementById('submit-method').value,
+      gformId: document.getElementById('gform-id').value.trim(),
+      entryScenario: document.getElementById('entry-scenario').value.trim(),
+      entryRole: document.getElementById('entry-role').value.trim(),
+      entryEthics: document.getElementById('entry-ethics').value.trim(),
+      entryLaw: document.getElementById('entry-law').value.trim(),
+      entryJudgment: document.getElementById('entry-judgment').value.trim(),
+      entryEmpathy: document.getElementById('entry-empathy').value.trim(),
+      entryReflection: document.getElementById('entry-reflection').value.trim()
+    });
+    const el = document.getElementById('save-status');
+    el.textContent = '✅ 設定已儲存';
+    el.style.color = '#3a9d5e';
+  });
+})();
+</script>
+</body>
+</html>

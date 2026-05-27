@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T06 - 假教授應徵台大 - 教師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T06">
+  <header>
+    <span class="badge" id="scenario-id">T06</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>系教評會前一天晚上，你坐在書桌前翻閱應徵者的資料夾。70多篇論文的發表記錄看起來豐富，但你注意到幾個期刊名稱拼法怪異——也許只是筆誤，但也可能是更嚴重的問題。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T06',
+  role: 'teacher',
+  difficulty: '中級',
+  newsSource: [ { name: 'Mnews', url: 'https://www.mnews.tw/story/mm-20250207inv006' } ],
+  setting: '系教評會前一天晚上，你坐在書桌前翻閱應徵者的資料夾。70多篇論文的發表記錄看起來豐富，但你注意到幾個期刊名稱拼法怪異——也許只是筆誤，但也可能是更嚴重的問題。',
+  dialogues: [
+    { speaker: '同事教授A', text: '這個候選人的發表量是其他應徵者的三倍，很有競爭力。' },
+    { speaker: '你', text: '的確，72篇論文，第一作者超過40篇。' },
+    { speaker: '同事教授A', text: '而且是 UCLA 博士，學經歷完整。' },
+    { speaker: '你', text: '不過⋯⋯我看了一下參考文獻格式不太統一，有些期刊我沒聽過。' },
+    { speaker: '同事教授B', text: '可能是領域差異吧，我們不是完全同領域的。' },
+    { speaker: '你', text: '我隨機抽查了三篇，其中一篇的期刊在 Scopus 完全查不到。' },
+    { speaker: '同事教授A', text: '你的意思是⋯⋯數據有問題？' },
+    { speaker: '你', text: '我不確定是灌水還是更嚴重的造假。但我認為在明天的會議上需要提出來討論。' },
+    { speaker: '同事教授B', text: '如果搞錯了，對候選人很不公平。' },
+    { speaker: '你', text: '但如果是真的，讓造假者進入學術界，才是最大的不公平。' }
+  ],
+  choices: [
+    { stage1: '嚴格審查', stage2: [ { label: '在教評會提出異議暫停審查', result: '你的異議讓會議暫停，系主任決定組成三人調查小組進行查核，最終確認造假屬實，不予聘任。', scores: {ethics: 5, law: 4, judgment: 6, empathy: 2} }, { label: '要求候選人補件說明', result: '候選人補件後漏洞更多，最終自行撤件。你維護了審查的公信力，也給了對方臺階。', scores: {ethics: 4, law: 3, judgment: 5, empathy: 1} }, { label: '委託圖書館驗證論文真實性', result: '圖書館回報查無十餘篇期刊，證據確鑿。教評會一致決議不予聘任，學術紀律得以伸張。', scores: {ethics: 5, law: 5, judgment: 6, empathy: 3} } ] },
+    { stage1: '私下提醒', stage2: [ { label: '先寫信給候選人詢問', result: '候選人回覆含糊其詞，你在會議上提出疑慮，最終仍未聘任，但過程拖沓耗時。', scores: {ethics: 2, law: 1, judgment: 2, empathy: 3} }, { label: '告知系主任私下處理', result: '系主任私下要求候選人撤件，事情未公開。但造假者轉往他校應徵，你未能阻止下一個受害者。', scores: {ethics: 1, law: -1, judgment: 0, empathy: 2} } ] },
+    { stage1: '放行不追究', stage2: [ { label: '在會議上保持沉默', result: '造假教授獲聘，一年後被學生踢爆，全校蒙羞。你後悔當時沒有發聲，自責多年。', scores: {ethics: -4, law: -3, judgment: -5, empathy: -1} }, { label: '投贊成票', result: '你的贊成票成為關鍵一票。造假教授上任後被媒體揭露，教評會成員全部連帶被檢討。', scores: {ethics: -6, law: -5, judgment: -6, empathy: -3} } ] }
+  ],
+  realWorldOutcome: '台大生機系教評會審查發現陳杏圓60頁資料中至少10處明顯瑕疵，包括期刊名稱拼寫錯誤、論文重複列計。追查發現其UCLA博士學歷亦為偽造，此前已因此遭判刑。台大不予聘任，教育部通令各大學加強應徵者學歷與論文真實性查核。'
+});
+</script>
+</body>
+</html>

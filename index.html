@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學術倫理遊戲</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="hub-header">
+    <h1>學術倫理前線</h1>
+    <p>選擇角色，進入你的倫理考驗</p>
+  </div>
+  <div class="mode-selector">
+    <span class="mode-option" data-mode="free" onclick="switchMode('free')">自由選擇</span>
+    <span class="mode-divider">|</span>
+    <span class="mode-option" data-mode="progressive" onclick="switchMode('progressive')">循序漸進</span>
+  </div>
+  <div class="role-strip" id="role-strip"></div>
+  <div class="score-mini" id="score-mini"></div>
+  <button class="btn-reset" onclick="if(confirm('清除所有資料？')){localStorage.clear();location.reload();}">🗑️ 重新開始</button>
+</div>
+<script src="game-engine.js"></script>
+<script src="scenarios.js"></script>
+<script>
+(function() {
+  var R = { student:{icon:'🎓',name:'學生'}, teacher:{icon:'👨‍🏫',name:'老師'}, admin:{icon:'🏛️',name:'行政'} };
+  var DL = { easy:'入門', medium:'中級', hard:'進階' };
+  var DO = ['easy','medium','hard'];
+  var DC = { easy:'diff-easy', medium:'diff-medium', hard:'diff-hard' };
+
+  function gm() { return localStorage.getItem('aeg-mode') || 'free'; }
+  window.switchMode = function(m) { localStorage.setItem('aeg-mode',m); render(); };
+
+  function ts() { var s=AEG.State.getScores(); return s.ethics+s.law+s.judgment+s.empathy; }
+
+  function firstPlayable(role) {
+    var c = AEG.State.getCompleted(), score = ts();
+    var list = function(d) { return SCENARIOS.filter(function(s){ return s.role===role && s.difficulty===d; }); };
+    var any = function(d) { return list(d).some(function(s){ return c.indexOf(s.id)>=0; }); };
+    if (!any('easy') && list('easy').length) return list('easy')[0];
+    if (any('easy') && score>=50 && list('medium').length) {
+      if (!any('medium')) return list('medium')[0];
+      if (score>=180 && list('hard').length) return list('hard')[0];
+      return list('medium')[0];
+    }
+    return list('easy')[0];
+  }
+
+  function render() {
+    var mode = gm();
+    document.querySelectorAll('.mode-option').forEach(function(el){ el.classList.toggle('active',el.dataset.mode===mode); });
+    var html = '', c = AEG.State.getCompleted(), score = ts();
+    for (var role in R) {
+      html += '<div class="role-strip-row">';
+      if (mode==='progressive') {
+        var f = firstPlayable(role);
+        html += '<a class="role-strip-card" href="'+(f?f.file:'#')+'" onclick="AEG.State.setRole(\''+role+'\')">';
+      } else {
+        html += '<div class="role-strip-card">';
+      }
+      html += '<span class="rsi">'+R[role].icon+'</span><span class="rsn">'+R[role].name+'</span>';
+      if (mode==='progressive') html += '<span class="rsa">▶ 開始</span>';
+      html += mode==='progressive'?'</a>':'</div>';
+      html += '<div class="rs-diffs">';
+      DO.forEach(function(d) {
+        var list = SCENARIOS.filter(function(s){ return s.role===role && s.difficulty===d; });
+        var anyDone = list.some(function(s){ return c.indexOf(s.id)>=0; });
+        var unlocked = d==='easy' || (DO.indexOf(d)>0 && ts()>= (d==='medium'?50:180) && SCENARIOS.filter(function(s){ return s.role===role && s.difficulty===DO[DO.indexOf(d)-1]; }).some(function(s){ return c.indexOf(s.id)>=0; }));
+        if (mode==='free') {
+          html += '<a class="diff-pill '+DC[d]+'" href="levels.html?role='+role+'&diff='+d+'" onclick="AEG.State.setRole(\''+role+'\')">'+DL[d]+'</a>';
+        } else {
+          if (unlocked) {
+            var next = list.find(function(s){ return c.indexOf(s.id)<0; }) || list[0];
+            html += '<a class="diff-pill '+DC[d]+'" href="'+(next?next.file:'#')+'" onclick="AEG.State.setRole(\''+role+'\')">'+DL[d]+(anyDone?' ✅':' ▶')+'</a>';
+          } else {
+            html += '<span class="diff-pill diff-locked">🔒 '+DL[d]+'</span>';
+          }
+        }
+      });
+      html += '</div></div>';
+    }
+    document.getElementById('role-strip').innerHTML = html;
+    var s = AEG.State.getScores();
+    document.getElementById('score-mini').innerHTML = '<span class="sm-label">倫理 '+s.ethics+'</span> <span class="sm-label">法規 '+s.law+'</span> <span class="sm-label">判斷 '+s.judgment+'</span> <span class="sm-label">同理心 '+s.empathy+'</span> <span class="sm-total">總分 '+ts()+'</span>';
+  }
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T09 - 北科大研究生輕生事件 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T09">
+  <header>
+    <span class="badge" id="scenario-id">T09</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>北科大教師辦公室，午休時間。走廊盡頭隱約傳來指導教授與學生的爭執聲。窗外是灰濛濛的天空，你看著桌上那杯涼掉的咖啡，心神不寧。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T09',
+  role: 'teacher',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中央社', url: 'https://www.cna.com.tw/news/ahel/202605200199.aspx' },
+    { name: '鏡週刊', url: 'https://www.mirrormedia.mg/story/20260521edi054' }
+  ],
+  setting: '北科大教師辦公室，午休時間。走廊盡頭隱約傳來指導教授與學生的爭執聲。窗外是灰濛濛的天空，你看著桌上那杯涼掉的咖啡，心神不寧。',
+  dialogues: [
+    { speaker: '旁白', text: '你是北科大一位教授。你的辦公室正好在一位以嚴格聞名的同事隔壁。這學期你多次聽到他實驗室傳來爭吵聲，也注意到他的研究生精神狀態越來越差。' },
+    { speaker: '教授A', text: '你聽到了嗎？隔壁又在罵人了。這已經是這週第三次了。' },
+    { speaker: '教授B', text: '（壓低聲音）我聽說那個學生這學期被換了四次題目，上週還被踢出計畫。' },
+    { speaker: '教授A', text: '四次？！我之前在走廊遇到那個學生，和他打招呼，他眼神完全是空的⋯⋯那種空洞不是普通的累。' },
+    { speaker: '教授B', text: '唉⋯⋯這種事我們怎麼介入？管了得罪同事，不管良心不安。以前也有人反映過，最後不了了之。' },
+    { speaker: '教授A', text: '但如果真的出事了怎麼辦？我覺得我們不能當作沒看到。' },
+    { speaker: '教授B', text: '你說的對⋯⋯但要怎麼做才不會傷害到學生，也不會讓同事反彈到無法收拾？' }
+  ],
+  choices: [
+    {
+      stage1: '私下關懷學生',
+      stage2: [
+        {
+          label: '找該生談話，表達關心與支持',
+          result: '你趁實驗室無人時叫住學生，溫和地說「如果有需要，我的門永遠開著」。學生眼眶泛紅，談了很久。雖然你無法直接改變他的指導關係，但你的關懷給了他一個重要的情緒出口。',
+          scores: { ethics: 10, law: 5, judgment: 8, empathy: 18 }
+        },
+        {
+          label: '匿名提供輔導資源與申訴管道資訊',
+          result: '你將輔導中心預約方式、申訴流程和校外求助專線寫成一張卡片，匿名塞進學生的抽屜。學生後來去了一次輔導中心。但匿名方式讓學生不知道可以信任誰。',
+          scores: { ethics: 8, law: 5, judgment: 8, empathy: 12 }
+        },
+        {
+          label: '寫一封鼓勵的信給學生但署名',
+          result: '你寫了一封簡短溫暖的信，署名放入學生信箱，表達願意傾聽。學生很感動但不敢回覆，因為擔心被指導教授發現你在「插手」。善意反而讓學生多了被發現的焦慮。',
+          scores: { ethics: 8, law: 3, judgment: 0, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '向系上或校方反映',
+      stage2: [
+        {
+          label: '私下向系主任表達憂心',
+          result: '你找系主任喝咖啡時委婉提及觀察到的情況。系主任說他會留意，但沒有具體行動。你的提醒讓系主任開始注意該實驗室，但缺乏正式記錄，後續追蹤不力。',
+          scores: { ethics: 10, law: 8, judgment: 10, empathy: 8 }
+        },
+        {
+          label: '聯合其他教師共同向院方提案',
+          result: '你找了四位有類似觀察的教師，聯名向院方提出「研究生指導關係檢視與改善建議」。院方重視集體意見，召開公聽會並啟動指導教授評鑑制度的討論。',
+          scores: { ethics: 18, law: 12, judgment: 15, empathy: 12 }
+        },
+        {
+          label: '匿名向督察室檢舉',
+          result: '你以匿名方式向校方督察室檢舉。督察室立案調查，但由於是匿名，無法請你補充細節，調查範圍受限。當事教授隱約感覺被檢舉，實驗室氣氛更加緊繃。',
+          scores: { ethics: 3, law: 5, judgment: 3, empathy: 0 }
+        }
+      ]
+    },
+    {
+      stage1: '直接與當事教授溝通',
+      stage2: [
+        {
+          label: '委婉提醒對方注意學生狀況',
+          result: '你在走廊上遇到同事，用關心的語氣說：「你實驗室那個學生最近看起來壓力很大，還好嗎？」對方愣了一下，說「我會注意」。隔天你發現學生被叫去談話更久了。',
+          scores: { ethics: 3, law: 0, judgment: -5, empathy: 8 }
+        },
+        {
+          label: '建議當事教授接受教學諮詢',
+          result: '你以自身經驗分享的方式建議同事參加教學發展中心的諮詢服務。對方感覺被冒犯，冷冷地說「我的指導方式不需要別人教」。關係從此變得尷尬。',
+          scores: { ethics: 3, law: 0, judgment: -8, empathy: 5 }
+        },
+        {
+          label: '邀請該教授共同參加師生互動工作坊',
+          result: '你邀請同事一起去參加一場「有效指導與師生溝通」工作坊，說是「一起去學新東西」。他半推半就地去了，工作坊中的案例討論讓他開始反思自己的指導方式。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 12 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '北科大研究生疑因指導教授長期刁難（論文題目4個月改4次、被踢出計畫）輕生。校方暫停涉案教師教學指導權並啟動調查。此事件引發學術界對於師生權力不對等與研究生權益保障的全面討論。'
+});
+</script>
+</body>
+</html>

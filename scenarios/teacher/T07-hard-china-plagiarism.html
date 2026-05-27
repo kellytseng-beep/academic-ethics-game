@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T07 - 復旦博士抄襲台灣論文 - 教師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T07">
+  <header>
+    <span class="badge" id="scenario-id">T07</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>清晨六點，手機的通知聲把你從睡夢中驚醒。你的學生傳來一條訊息，附上一張截圖和一串驚嘆號—她的碩士論文被中國學者一字不漏地全文抄襲，連當年論文中的筆誤都一模一樣。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T07',
+  role: 'teacher',
+  difficulty: '進階',
+  newsSource: [ { name: '中央社', url: 'https://www.cna.com.tw/news/acn/202502250367.aspx' } ],
+  setting: '清晨六點，手機的通知聲把你從睡夢中驚醒。你的學生傳來一條訊息，附上一張截圖和一串驚嘆號—她的碩士論文被中國學者一字不漏地全文抄襲，連當年論文中的筆誤都一模一樣。',
+  dialogues: [
+    { speaker: '學生', text: '教授，對不起這麼早打擾您，但我發現了一件很嚴重的事。' },
+    { speaker: '你', text: '慢慢說，怎麼了？' },
+    { speaker: '學生', text: '我的碩士論文⋯⋯被中國期刊全文抄襲了。' },
+    { speaker: '你', text: '什麼？哪本期刊？誰抄的？' },
+    { speaker: '學生', text: '《中國科技論文在線》，作者是復旦大學的博士後研究員王燦。' },
+    { speaker: '你', text: '你確認過比對結果了嗎？' },
+    { speaker: '學生', text: '一字不漏，連我拼錯的 "conceptural" 都一樣。圖表也是直接複製貼上。' },
+    { speaker: '你', text: '⋯⋯我來看看。如果是整篇抄襲，這不是疏忽，是惡意。' },
+    { speaker: '學生', text: '教授，我們可以告他嗎？還是要怎麼申訴？' },
+    { speaker: '你', text: '跨國學術倫理案件比較複雜，但我會陪你走完這個程序。第一步，我們先把證據完整整理出來。' }
+  ],
+  choices: [
+    { stage1: '正式申訴', stage2: [ { label: '協助學生向復旦大學提出正式檢舉', result: '你協助學生整理完整比對報告，以校方名義發函復旦。復旦調查後予以退站，抄襲論文全數撤稿。', scores: {ethics: 6, law: 5, judgment: 6, empathy: 4} }, { label: '透過台灣教育部發函', result: '教育部學術倫理辦公室協助發函，對岸主管機關轉交復旦處理。耗時較長但正式管道完備。', scores: {ethics: 5, law: 5, judgment: 5, empathy: 2} }, { label: '聯繫期刊要求撤稿並追究', result: '期刊社確認抄襲後撤稿，但拒絕提供作者聯繫方式。你轉向復旦檢舉，最終仍獲處理。', scores: {ethics: 4, law: 2, judgment: 3, empathy: 3} } ] },
+    { stage1: '學術制裁', stage2: [ { label: '串連台灣學術界連署譴責', result: '47位教授聯合聲明，兩岸學術圈高度關注。復旦在壓力下加速處理，抄襲者遭退站。', scores: {ethics: 4, law: 2, judgment: 2, empathy: 3} }, { label: '在國際學術會議公開此事', result: '你在 IEEE 會議上公開此案例，引發國際學術倫理討論，但學生擔心被過度曝光。', scores: {ethics: 5, law: 1, judgment: 0, empathy: 1} }, { label: '呼籲期刊社加入防抄襲資料庫', result: '你的呼籲獲得響應，但遭抄襲的論文已無法撤回，學生的傷害已造成。', scores: {ethics: 2, law: 0, judgment: 2, empathy: 3} } ] },
+    { stage1: '勸退學生', stage2: [ { label: '告知跨海訴訟不易建議放棄', result: '學生聽從建議放棄申訴，但從此對學術研究失去熱情。抄襲者轉投其他期刊繼續發表。', scores: {ethics: -5, law: -3, judgment: -5, empathy: -3} }, { label: '協助修改論文避開抄襲部分', result: '你們修改了論文重新發表，但抄襲者的論文仍在資料庫中。學生覺得「好像是我在躲他」。', scores: {ethics: -3, law: -2, judgment: -3, empathy: -2} } ] }
+  ],
+  realWorldOutcome: '復旦大學博士後王燦兩年內抄襲台灣4篇碩士論文，一字不漏連同註腳圖表發表。經台灣教授與學生聯合檢舉，復旦調查屬實予以退站處理。教育部後續建立跨國學術倫理申訴專線與指引。'
+});
+</script>
+</body>
+</html>

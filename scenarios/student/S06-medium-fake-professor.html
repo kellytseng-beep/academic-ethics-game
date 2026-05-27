@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S06 - 假教授應徵台大 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S06">
+  <header>
+    <span class="badge" id="scenario-id">S06</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>午後的系辦空調嗡嗡作響，你坐在影印機旁整理本學年度應徵專任教師的履歷資料，翻開一本厚達60頁的申請文件，宣稱發表論文70餘篇—但第三頁的期刊名稱拼字錯誤，讓你不由得停下了動作。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S06',
+  role: 'student',
+  difficulty: '中級',
+  newsSource: [ { name: 'Mnews', url: 'https://www.mnews.tw/story/mm-20250207inv006' } ],
+  setting: '午後的系辦空調嗡嗡作響，你坐在影印機旁整理本學年度應徵專任教師的履歷資料，翻開一本厚達60頁的申請文件，宣稱發表論文70餘篇—但第三頁的期刊名稱拼字錯誤，讓你不由得停下了動作。',
+  dialogues: [
+    { speaker: '系辦學姊', text: '這些是今年應徵專任教授的資料，幫我掃描歸檔就好。' },
+    { speaker: '你', text: '好的⋯⋯哇，這位老師發表了72篇論文，好驚人。' },
+    { speaker: '系辦學姊', text: '對啊，聽說資料超厚，寄來時用 FedEx 大信封。' },
+    { speaker: '你', text: '⋯⋯嗯？Journal of Biomedical Sciences⋯⋯J-o-r-n-a-l？少了一個 r？' },
+    { speaker: '系辦學姊', text: '打錯字吧，可能排版沒注意。' },
+    { speaker: '你', text: '可是每一篇的期刊名稱我都有印象但又不太對⋯⋯這篇跟我讀過的 paper 格式不一樣。' },
+    { speaker: '系辦學姊', text: '你該不會想一篇一篇查吧？70幾篇耶。' },
+    { speaker: '你', text: '至少⋯⋯我查到第三篇就有問題了。如果真的有灌水造假，不應該讓這種人進來教書。' }
+  ],
+  choices: [
+    { stage1: '通報教師', stage2: [ { label: '告知系上信任的教授', result: '你趁教授下課時私下告知，教授感謝你的警覺，承諾在審查會議提出異議。你的細心守護了系所的審查品質。', scores: {ethics: 3, law: 2, judgment: 5, empathy: 2} }, { label: '寫匿名信給審查委員會', result: '匿名信被轉交教評會，但因無法進一步詢問細節，僅被列為參考意見。雖然有了影響力，但有限。', scores: {ethics: 2, law: 1, judgment: 3, empathy: 0} } ] },
+    { stage1: '正式檢舉', stage2: [ { label: '整理證據向系主任報告', result: '系主任非常重視你的發現，當面讚許你的細心，啟動正式覆核程序，最終剔除了這份造假申請。', scores: {ethics: 5, law: 4, judgment: 5, empathy: 3} }, { label: '連同比對資料送教務處', result: '教務處展開調查，在教授評審會議前確認瑕疵屬實，申請案遭撤銷。你的行動讓校方避開了一場風暴。', scores: {ethics: 5, law: 5, judgment: 4, empathy: 2} }, { label: '向媒體爆料', result: '媒體大幅報導，造假被揭露，但校方因被媒體壓迫而對你產生不滿。你達成了目的但失去了信任。', scores: {ethics: 3, law: 1, judgment: -2, empathy: 0} } ] },
+    { stage1: '消極處理', stage2: [ { label: '跟室友抱怨但不行動', result: '你和室友罵了一晚，但什麼也沒改變。後來造假教授真的被審查出問題，你仍對自己的沉默感到不安。', scores: {ethics: -2, law: -1, judgment: -3, empathy: 0} }, { label: '當作沒看見繼續歸檔', result: '你把資料歸檔了，但接下來幾天都睡不好。新聞爆出造假案後，你後悔當時沒有站出來。', scores: {ethics: -5, law: -3, judgment: -5, empathy: -2} } ] }
+  ],
+  realWorldOutcome: '台大生機系審查發現60頁資料中至少10處瑕疵，包括期刊名稱拼錯、論文重複列計、部分期刊根本不存在。陳杏圓此前曾因偽造UCLA學歷遭判刑，此案後台大不予聘任，教育部修正審查要點，要求各校加強論文真實性查核。'
+});
+</script>
+</body>
+</html>

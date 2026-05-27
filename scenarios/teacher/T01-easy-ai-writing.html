@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T01 - AI 虛構文獻事件 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T01">
+  <header>
+    <span class="badge" id="scenario-id">T01</span>
+    <span class="badge" id="difficulty">入門</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+
+  <div class="news-sources" id="news-sources"></div>
+
+  <div id="scene-setting">
+    <p>深夜，研究室。電腦螢幕的光映在你的臉上。</p>
+    <p>你習慣性地打開全國博碩士論文系統，想查查自己的文章被引用的狀況。</p>
+    <p>搜尋結果跳出兩筆陌生的記錄，標題下方掛著你的名字——但你從未寫過這些文章。</p>
+  </div>
+
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">
+        完整報導請見新聞連結。
+      </p>
+    </div>
+  </div>
+
+  <div id="reflection-area" class="hidden"></div>
+
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T01',
+  role: 'teacher',
+  difficulty: '入門',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/8825513' },
+    { name: '梅花新聞網', url: 'https://www.i-meihua.com/Article/Detail/29094' }
+  ],
+  setting: '深夜，研究室。電腦螢幕的光映在你的臉上。你習慣性地打開全國博碩士論文系統，想查查自己的文章被引用的狀況。搜尋結果跳出兩筆陌生的記錄，標題下方掛著你的名字——但你從未寫過這些文章。',
+  dialogues: [
+    { speaker: '旁白', text: '你反覆確認了三次搜尋結果。' },
+    { speaker: '教授', text: '這不對——我根本沒寫過〈南台灣海港變遷與地名演進研究〉這篇論文。' },
+    { speaker: '旁白', text: '你點開那篇碩士論文，翻到參考文獻頁。' },
+    { speaker: '教授', text: '不只我的名字被掛上去⋯⋯這整份參考文獻怪怪的。' },
+    { speaker: '教授', text: '格式很漂亮、期刊名稱也對，但這十幾篇——我半篇都沒讀過。' },
+    { speaker: '旁白', text: '你一篇一篇複製到搜尋引擎查詢。' },
+    { speaker: '教授', text: '果然——這些文章根本不存在。全都是 AI 生成的「幽靈文獻」。' },
+    { speaker: '旁白', text: '第二天，你把這個發現告訴了隔壁研究室的同事。' },
+    { speaker: '同事', text: '你確定這些是 AI 弄的？不是學生自己編的？' },
+    { speaker: '教授', text: '我很確定。生成式 AI 擅長產出「看起來正確」的內容，但不會驗證真實性。這些文獻格式無懈可擊，但內容全是虛構的。' },
+    { speaker: '同事', text: '你打算怎麼處理？' },
+    { speaker: '教授', text: '我已經寫信給這兩所學校的校長了。不過⋯⋯我在想，接下來該怎麼做才恰當。' }
+  ],
+  choices: [
+    {
+      stage1: '嚴厲追究',
+      stage2: [
+        {
+          label: '公開點名譴責，要求最重處分',
+          result: '你在學術社群網站上公開了這兩篇論文的細節，直接點名學校與學生。媒體迅速跟進報導，兩所學校承受極大輿論壓力。學生遭到退學處分，但輿論也開始檢討你「是否小題大作」。你的同事私下提醒你：「這樣的處理方式，可能會讓未來其他學生不敢誠實面對錯誤。」',
+          scores: { ethics: -3, law: 5, judgment: -5, empathy: -10 }
+        },
+        {
+          label: '發文到學術社群，讓同行警惕',
+          result: '你在學術社群發表了一篇分析文，詳細說明如何辨識 AI 生成的幽靈文獻。文章被廣泛轉發，許多教授感謝你提出這個警示。兩所學校也主動聯絡你，表達將嚴肅處理。你在學術倫理議題上建立了影響力。',
+          scores: { ethics: 5, law: 8, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '直接向教育部檢舉，要求徹查',
+          result: '你將完整事證呈報教育部，請求對兩所學校進行學術倫理專案調查。教育部發文要求學校限期回覆。學校雖然配合調查，但部分師生認為此舉「太過」，影響校譽。你與兩所學校的關係變得緊張。',
+          scores: { ethics: 3, law: 12, judgment: 3, empathy: -5 }
+        }
+      ]
+    },
+    {
+      stage1: '低調處理',
+      stage2: [
+        {
+          label: '私下寫信給校方，不公開',
+          result: '你寫了一封措辭溫和但立場堅定的信給兩校校長，附上比對資料。信中表示你願意低調處理，但希望學校正視問題。兩校皆回信感謝你的提醒，並啟動內部調查。學生最終被要求重寫論文，但此事未見媒體，校譽得以保全。',
+          scores: { ethics: 8, law: 5, judgment: 10, empathy: 8 }
+        },
+        {
+          label: '只跟該系教授溝通，不往上報',
+          result: '你直接聯絡了論文學生的指導教授。對方一開始有些防衛，但看完你的證據後坦承自己對 AI 不夠了解，沒有確實查核。雙方協議由該校系內自行處理，不啟動正式檢舉程序。學生被要求重寫論文，但指導教授也被提醒要加強審查。',
+          scores: { ethics: 3, law: -3, judgment: 5, empathy: 10 }
+        },
+        {
+          label: '私下提醒學生，不啟動正式程序',
+          result: '你透過系辦聯絡上該名學生，直接和他通話。學生在電話中崩潰坦承自己因為口試壓力才出此下策。你告訴他問題的嚴重性，並建議他主動向系上說明。學生最終主動坦承並請求補救，但因為你未通報校方，程序上留有爭議。',
+          scores: { ethics: -3, law: -8, judgment: -5, empathy: 12 }
+        }
+      ]
+    },
+    {
+      stage1: '教育導向',
+      stage2: [
+        {
+          label: '要求校方加強 AI 倫理教育，不追究個人',
+          result: '你向兩校建議：與其重罰學生，不如將此事作為契機，建立全校性的 AI 素養課程。你甚至主動提供教學資源。兩校接受你的建議，成立 AI 學術倫理工作小組。學生個人從輕發落，但全校師生都因此受益。',
+          scores: { ethics: 15, law: 8, judgment: 15, empathy: 15 }
+        },
+        {
+          label: '公開發文呼籲，但不揭露具體個案',
+          result: '你在個人部落格寫了一篇文章：「當 AI 開始偽造參考文獻——學術界該如何應對？」文中不點名具體學校或學生，而是從現象討論制度缺失。文章引發廣泛討論，多位大學教授留言分享類似經驗，形成一股檢討 AI 政策的聲浪。',
+          scores: { ethics: 12, law: 5, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '建議校方建立 AI 使用指引與偵測制度',
+          result: '你將此次事件整理成一份完整的案例報告，提交給兩所學校的教務處，建議建立一套完整的 AI 學術倫理指引。包括：教師增能課程、AI 生成內容偵測軟體的採購、學生使用 AI 的明確規範。你的建議被校方採納，並在全國大學教務會議中被引用。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 10 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '屏東大學與南華大學皆啟動調查，確認學生論文參考文獻為 AI 虛構。屏東大學要求學生重寫論文、開設 AI 倫理課程；南華大學決議該生口試成績不及格、採購 AI 生成內容比對系統，未來所有論文須通過 AI 檢核才能進行口試。中山大學教授葉高華公開呼籲：「AI 資訊來源查核是很重要的一門功夫，各校應速納入教學。」'
+});
+</script>
+</body>
+</html>

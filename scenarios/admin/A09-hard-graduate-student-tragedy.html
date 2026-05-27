@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A09 - 北科大研究生輕生事件 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A09">
+  <header>
+    <span class="badge" id="scenario-id">A09</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>北科大系主任辦公室，午後。桌上放著輔導中心的轉介記錄、學生意見反映函，以及一份研究生權益調查報告草案。日光燈管發出輕微的嗡嗡聲。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A09',
+  role: 'admin',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中央社', url: 'https://www.cna.com.tw/news/ahel/202605200199.aspx' },
+    { name: '鏡週刊', url: 'https://www.mirrormedia.mg/story/20260521edi054' }
+  ],
+  setting: '北科大系主任辦公室，午後。桌上放著輔導中心的轉介記錄、學生意見反映函，以及一份研究生權益調查報告草案。日光燈管發出輕微的嗡嗡聲。',
+  dialogues: [
+    { speaker: '旁白', text: '你是北科大系主任。這學期已經接到多位學生對同一位教授的投訴——論文題目一再更改、學生被踢出研究計畫。輔導中心也記錄了該實驗室學生的高焦慮指數。' },
+    { speaker: '系主任', text: '這已經是第三次了。同一個教授，同一種模式。學生來投訴，訪談時又不敢多說，怕被報復。' },
+    { speaker: '委員會成員', text: '而且輔導中心有記錄，那位教授實驗室的學生普遍有焦慮和失眠的情況。這已經不是個案問題了。' },
+    { speaker: '系主任', text: '問題是，我們手邊沒有直接證據證明教授有「不當行為」。學術指導的權力界限本就很模糊。他有他的說法——他會說學生能力不足、不夠努力。' },
+    { speaker: '委員會成員', text: '但如果繼續坐視，等到真的出事，我們全都有責任。' },
+    { speaker: '系主任', text: '你說的對。我們得在造成更大傷害之前行動。但怎麼做才能既保護學生又公平對待教師？' }
+  ],
+  choices: [
+    {
+      stage1: '啟動正式調查',
+      stage2: [
+        {
+          label: '成立調查委員會並暫停該師指導權',
+          result: '你果斷召開系教評會，通過暫停該教授指導研究生資格並成立三人調查小組的決議。教授強烈反彈，指控校方未審先判。但學生權益獲得即時保護，調查報告三個月後出爐。',
+          scores: { ethics: 15, law: 15, judgment: 12, empathy: 10 }
+        },
+        {
+          label: '正式約談該教授並記錄會議內容',
+          result: '你以系主任身分正式約談該教授，在人事主任陪同下製作會議記錄。教授承認對學生要求嚴格，但否認有不當對待。有了書面記錄後，後續追蹤有據可循。',
+          scores: { ethics: 10, law: 12, judgment: 10, empathy: 5 }
+        },
+        {
+          label: '先發問卷調查該實驗室所有學生',
+          result: '你設計了一份匿名問卷，調查該實驗室所有學生的指導經驗。問卷回收後發現超過七成學生表示曾感到被不合理對待。客觀數據讓後續行動有了堅實基礎。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 8 }
+        }
+      ]
+    },
+    {
+      stage1: '以學生保護與輔導為優先',
+      stage2: [
+        {
+          label: '主動協助學生更換指導教授並提供輔導',
+          result: '你親自約談該實驗室每位學生，說明可以協助更換指導教授並保密處理。同時連結輔導中心提供心理諮商。多位學生成功轉換指導教授，學業得以繼續。',
+          scores: { ethics: 18, law: 10, judgment: 12, empathy: 18 }
+        },
+        {
+          label: '系上介入協調論文指導方式並定期追蹤',
+          result: '你要求該教授與學生簽訂明確的論文指導協議，包含題目確認期限、修改次數上限等。每月追蹤一次進度。表面合規，但權力不對等的本質問題沒有改變。',
+          scores: { ethics: 8, law: 8, judgment: 8, empathy: 10 }
+        },
+        {
+          label: '僅轉介學生至輔導中心未處理制度面',
+          result: '你建議學生去輔導中心談談，但沒有對教授的指導行為進行任何調整。學生獲得短暫情緒支持，但回到實驗室後，同樣的壓力源仍在。問題沒有解決。',
+          scores: { ethics: 3, law: -3, judgment: -5, empathy: 8 }
+        }
+      ]
+    },
+    {
+      stage1: '推動制度性改革',
+      stage2: [
+        {
+          label: '建立指導教授評鑑與學生匿名回饋制度',
+          result: '你提案建立「研究生指導品質評鑑系統」，每學期由學生匿名填寫指導滿意度調查。結果作為教師評鑑參考指標。制度上路後，三起潛在的指導爭議被及早發現。',
+          scores: { ethics: 20, law: 15, judgment: 20, empathy: 15 }
+        },
+        {
+          label: '舉辦師生權力關係與學術倫理講座',
+          result: '你邀請校外專家舉辦系列講座，主題包括「指導關係中的權力界線」「研究生的權益與申訴管道」。參加師生反應熱烈，但講座屬於軟性措施，缺乏強制力。',
+          scores: { ethics: 12, law: 8, judgment: 10, empathy: 12 }
+        },
+        {
+          label: '修改所上規章明確定義指導教授責任',
+          result: '你主導修訂研究所規章，明確定義指導教授的指導責任與禁止行為，並增加研究生更換指導教授的彈性機制。修章過程雖歷經多次討論，但最終全票通過。',
+          scores: { ethics: 18, law: 18, judgment: 18, empathy: 12 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '北科大研究生疑因指導教授長期刁難（論文題目4個月改4次、被踢出計畫）輕生。校方暫停涉案教師教學指導權並啟動調查。此事件引發學術界對於師生權力不對等與研究生權益保障的全面討論。'
+});
+</script>
+</body>
+</html>

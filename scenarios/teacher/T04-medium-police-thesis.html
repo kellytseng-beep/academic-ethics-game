@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T04 - 警大校長論文抄襲 - 老師</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="T04">
+  <header>
+    <span class="badge" id="scenario-id">T04</span>
+    <span class="badge" id="difficulty">中級</span>
+    <span class="badge" id="role-badge">老師</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>教師休息室午後，咖啡機低聲運轉。桌上攤開一份報紙的電子版，標題寫著「警大校長論文涉抄襲」，你的研究生剛傳來的連結還在手機螢幕上亮著。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'T04',
+  role: 'teacher',
+  difficulty: '中級',
+  newsSource: [
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6885/8922659' },
+    { name: 'TVBS', url: 'https://news.tvbs.com.tw/local/2952866' }
+  ],
+  setting: '教師休息室午後，咖啡機低聲運轉。桌上攤開一份報紙的電子版，標題寫著「警大校長論文涉抄襲」，你的研究生剛傳來的連結還在手機螢幕上亮著。',
+  dialogues: [
+    { speaker: '旁白', text: '你是一位大學教授，指導過十幾位碩博士生的論文。今天中午，你的研究生傳來一則新聞連結。' },
+    { speaker: '研究生', text: '老師，您看到警大校長的新聞了嗎？他的論文跟指導教授的研究案45%重疊。連錯字都一樣。' },
+    { speaker: '教授', text: '（讀完新聞，沉思片刻）我看到了。這是典型的「指導教授研究案延伸論文」爭議。' },
+    { speaker: '研究生', text: '老師，我有一個問題⋯⋯如果學生論文和老師的研究案長得很像，責任在學生還是老師？' },
+    { speaker: '教授', text: '好問題。指導教授有責任確保學生的論文是學生的自主研究成果，而不是研究案的複製貼上。' },
+    { speaker: '研究生', text: '可是警大回應說「論文具有獨創性」，研究對象和方法都不同。' },
+    { speaker: '教授', text: '如果文獻探討、理論架構、章節安排甚至漏字都一模一樣，那就不是獨創性的問題，而是論文寫作的界線問題了。' },
+    { speaker: '研究生', text: '老師⋯⋯您帶的學生如果這樣寫論文，您會怎麼處理？' },
+    { speaker: '旁白', text: '學生的問題讓你陷入沉思。這不只是警大的個案，而是整個學術界如何看待「指導關係中的論文界線」的系統性問題。' }
+  ],
+  choices: [
+    {
+      stage1: '淡化迴避',
+      stage2: [
+        {
+          label: '告訴學生「這是特例，不用大驚小怪」',
+          result: '你跟學生說「這種事學術界多的是，跟你的論文沒關係」。學生不再追問，但你感受到他眼神中的失望。往後他寫論文遇到引用問題也不敢問你，結果他的論文因為引用不當被退回修改。你失去了一次教育機會。',
+          scores: { ethics: -10, law: -3, judgment: -5, empathy: -5 }
+        },
+        {
+          label: '為校方辯護，強調「程序已處理」',
+          result: '你在課堂上為警大辯護，說「校方已經回應具有獨創性，外界不應該未審先判」。學生們沒有反駁，但下課後你無意中聽到他們在走廊討論：「老師是不是怕得罪學術圈的人？」你的公正性受到質疑。',
+          scores: { ethics: -12, law: -5, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '轉移話題，不願多談',
+          result: '你草草結束對話，說「這種事很複雜，以後再說」。學生看出你在閃避。這件事成為你們師生關係中的一道裂痕。幾個月後你發現他在網路上匿名請教學術倫理問題，而不是來找你。',
+          scores: { ethics: -8, law: 0, judgment: -5, empathy: -5 }
+        }
+      ]
+    },
+    {
+      stage1: '私下反思',
+      stage2: [
+        {
+          label: '重新檢視自己的指導方式',
+          result: '你花了一個晚上重新閱讀學術倫理相關規範，並檢視自己過去指導學生論文的方式。你發現自己在某些環節也曾經讓學生「參考」你的研究資料，但沒有清楚界定引用範圍。你決定從下學期開始改變指導方式。',
+          scores: { ethics: 8, law: 8, judgment: 10, empathy: 5 }
+        },
+        {
+          label: '在系務會議提出指導倫理討論案',
+          result: '你在系務會議中提案討論「論文指導中的學術倫理界線」，多位教授分享經驗，發現類似的模糊地帶普遍存在。會議決議制定一份指導教授與研究生的權責說明書，讓雙方在論文寫作初期就有明確規範。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '與研究生坦誠討論案例',
+          result: '你約了提問的學生喝咖啡，坦誠地跟他分析這個案例的各個層面：學生責任、指導責任、學校責任。你承認學術界確實存在灰色地帶，但也強調這些不能成為抄襲的藉口。學生說這是他上過最有意義的一堂課。',
+          scores: { ethics: 10, law: 8, judgment: 10, empathy: 12 }
+        }
+      ]
+    },
+    {
+      stage1: '正面行動',
+      stage2: [
+        {
+          label: '撰寫專文分析論文指導倫理',
+          result: '你花三天寫了一篇〈論文指導中的倫理界線：從警大校長案談起〉，投稿到《評鑑雙月刊》。文章被刊登後，多所大學的師培中心將其列為教材。你將一個爭議轉化為制度反思，影響了全國的指導教授。',
+          scores: { ethics: 18, law: 12, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '在全校教師研習會上報告',
+          result: '你主動在教務處舉辦的教師學術倫理研習會上報告此案例，分析指導教授在研究案與學生論文之間的角色衝突。與會老師反應熱烈，多位教授坦言自己過去也沒想清楚這個界線。會後教務長請你參與修訂校內學倫規範。',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '建議建立論文比對自主檢查機制',
+          result: '你向研發處建議購置論文比對軟體並開放給所有研究生使用，同時要求指導教授在送審前確認比對報告。雖然增加了一道行政程序，但一年後全校論文相似度平均下降30%。學生的論文寫作品質明顯提升。',
+          scores: { ethics: 15, law: 18, judgment: 20, empathy: 12 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '警大新任校長黃明昭遭爆2004年碩士論文與指導教授謝文彥的研究案高度雷同，AI比對重疊率達45%，14頁內容連續複製貼上一字不改。警大回應聲稱論文「具有獨創性」，研究對象、樣本、訪談結果均與研究案不同。此案依警大學術倫理處理要點規定程序辦理。'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A08 - 中正教授遭冒名投稿 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A08">
+  <header>
+    <span class="badge" id="scenario-id">A08</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>中正大學行政大樓會議室，上午。桌上整齊擺放著Elsevier往來文件、教授的陳情書，以及法務顧問提供的偽造文書判例資料。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A08',
+  role: 'admin',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中時新聞網', url: 'https://www.chinatimes.com/realtimenews/20250930003921-260405' },
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6928/9038803' }
+  ],
+  setting: '中正大學行政大樓會議室，上午。桌上整齊擺放著Elsevier往來文件、教授的陳情書，以及法務顧問提供的偽造文書判例資料。',
+  dialogues: [
+    { speaker: '旁白', text: '你是中正大學研發處學術倫理業務承辦人。今天早上電機系一位教授來申訴——他的名字被冒用，有人將抄襲論文以他的名義投稿至Elsevier期刊。' },
+    { speaker: '行政', text: '教授，請您詳細說明。這篇論文完全不是您寫的，也非您投稿？' },
+    { speaker: '教授', text: '對。我從來沒看過這篇論文。使用的通訊信箱是gmail，不是我的學校信箱。內容是抄襲其他論文的。' },
+    { speaker: '行政', text: '這是很嚴重的冒名事件。不僅影響您的學術名譽，也影響本校的學術聲譽。期刊那邊已經撤稿了嗎？' },
+    { speaker: '教授', text: '已經撤了。但現在問題是——這件事已經被記錄在我的發表歷史上，就算撤稿，紀錄還是在。' },
+    { speaker: '法務顧問', text: '從法律角度來看，冒名投稿可能涉及刑法偽造文書與侵害姓名權。我建議校方採取正式法律途徑。' },
+    { speaker: '教授', text: '我希望能還我清白。但也不想把學校拖進太複雜的訴訟⋯⋯' },
+    { speaker: '行政', text: '我們會非常謹慎。先讓我整理幾種可行方案，再與您討論最適合的做法。' }
+  ],
+  choices: [
+    {
+      stage1: '正式調查與法律程序',
+      stage2: [
+        {
+          label: '成立調查委員會並委任律師',
+          result: '校方迅速成立專案調查委員會，委任外部律師協助。委員會發函Elsevier要求提供完整投稿記錄與IP數據。程序完備但耗時三個月，教授在這段期間承受不少媒體壓力。',
+          scores: { ethics: 15, law: 18, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '發正式公文給Elsevier要求調查報告',
+          result: '你以學校名義發正式公文給Elsevier，要求提供投稿者詳細資料與投稿時間線。Elsevier回覆配合調查，但個資法限制下能提供的資訊有限，調查範圍受限。',
+          scores: { ethics: 10, law: 12, judgment: 8, empathy: 3 }
+        },
+        {
+          label: '暫緩處理先觀察風向',
+          result: '你建議教授「先等一陣子看看媒體風向再決定」。一個月過去了，輿論逐漸淡忘，但教授的名譽受損狀態沒有改善，學術界對他的信任也未恢復。延誤讓事情更難處理。',
+          scores: { ethics: -8, law: -5, judgment: -10, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '私下協商與低調處理',
+      stage2: [
+        {
+          label: '與期刊主編溝通撤稿並保留追溯權',
+          result: '你直接聯絡Elsevier期刊主編，以校方立場說明冒名事件，要求正式撤稿並保留日後法律追溯權。主編理解狀況並發布撤稿聲明，同時修正了線上紀錄的錯誤。',
+          scores: { ethics: 10, law: 10, judgment: 12, empathy: 8 }
+        },
+        {
+          label: '要求Elsevier提供投稿者IP與登入記錄',
+          result: '你以學校法務身分正式請求Elsevier提供投稿者IP記錄和登入時間戳。Elsevier配合提供資料，IP經查來自境外跳板，雖未找出真實身分，但證明了非教授本人投稿。',
+          scores: { ethics: 8, law: 12, judgment: 10, empathy: 5 }
+        },
+        {
+          label: '私下找關係好的編輯幫忙刪除紀錄',
+          result: '你透過人情拜託認識的期刊編輯直接刪除該篇論文的線上紀錄。紀錄消失了，但沒有留下正式調查報告。若未來類似事件再發生，學校沒有前例可依循。',
+          scores: { ethics: -10, law: -8, judgment: -5, empathy: 3 }
+        }
+      ]
+    },
+    {
+      stage1: '強化制度預防',
+      stage2: [
+        {
+          label: '建立教師著作主動監測通報系統',
+          result: '你提案並主導建置一套Scopus與WoS定期掃描系統，自動比對校內教師著作清單，發現異常投稿立即通報。系統上線後半年內成功預警三起潛在冒名事件。',
+          scores: { ethics: 18, law: 15, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '發函各大期刊建議採用雙重身分驗證',
+          result: '你以學校名義發函給國內外主要學術出版社，建議在投稿流程中加入機構信箱驗證或ORCID強制連結。多家期刊回覆表示將檢討現行機制。',
+          scores: { ethics: 15, law: 12, judgment: 15, empathy: 8 }
+        },
+        {
+          label: '舉辦校內學術倫理宣導講座',
+          result: '你在校內舉辦「學術身分保護與投稿安全」講座，向師生說明如何保護自己的學術身分不被盜用。雖然立意良好，但聽眾不多，缺乏具體追蹤機制，效果有限。',
+          scores: { ethics: 10, law: 5, judgment: 8, empathy: 8 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '中正大學電機系教授遭人冒名將抄襲文章投稿至Elsevier期刊。投稿者使用非學術信箱，期刊接獲檢舉後已撤稿。校方懷疑因教授長期揭露論文抄襲而遭報復，要求期刊協助調查冒名者身分。'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05 - 台大副校長經歷造假 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S05">
+  <header>
+    <span class="badge" id="scenario-id">S05</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>正午的校園，陽光穿過椰子樹葉在步道上篩落斑駁光影。你滑開手機，一篇關於副校長學術經歷造假的調查報導在同學群組裡瘋狂轉傳。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S05',
+  role: 'student',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中時新聞網', url: 'https://www.chinatimes.com/realtimenews/20250625000936-260405' },
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6885/8830665' }
+  ],
+  setting: '正午的校園，陽光穿過椰子樹葉在步道上篩落斑駁光影。你滑開手機，一篇關於副校長學術經歷造假的調查報導在同學群組裡瘋狂轉傳。',
+  dialogues: [
+    { speaker: '同學A', text: '欸，你們看到那篇報導了嗎？副校長的研究成果納入國際標準的事情是假的？' },
+    { speaker: '同學B', text: '看到了⋯⋯她說自己的研究被ITU國際電信聯盟標準納入，但記者去查根本找不到紀錄。' },
+    { speaker: '研究生', text: '而且她還說ETSI TiPHON收錄了她的研究成果，結果只是去開過會而已。' },
+    { speaker: '同學A', text: '問題是⋯⋯她憑這些經歷拿到傑出女青年、IEEE Fellow，還當上副校長。如果這些是假的⋯⋯' },
+    { speaker: '同學B', text: '我比較想知道，為什麼學校的學倫會去年已經認定不違反學倫？這不是很奇怪嗎？' },
+    { speaker: '同學A', text: '她發律師聲明說要告爆料者，還說「學術聲譽之於學者，有如皇后貞操般不容任何質疑」。' },
+    { speaker: '研究生', text: '可是⋯⋯上個月才有一個高中生因為學習歷程造假被五所大學取消錄取。標準怎麼差這麼多？' },
+    { speaker: '同學B', text: '（苦笑）因為對高層來說，「刑不上大夫」啊。但我們要不要做點什麼？' },
+    { speaker: '旁白', text: '手機螢幕上的新聞標題在你眼前晃動。你想起那位被撤銷資格的高中生，再對照副校長聲明中的強硬語氣，心裡有一種說不出的不平衡。' }
+  ],
+  choices: [
+    {
+      stage1: '冷漠旁觀',
+      stage2: [
+        {
+          label: '看看就好，跟自己無關',
+          result: '你滑過新聞，沒有留言也沒有轉傳。這件事很快淹沒在你日常課業的洪流中。但每當課堂上教授提起「學術誠信」，你心裡都會浮現一個念頭：制度只對底下的人嚴格。這種認知讓你對學術圈的信任日漸流失。',
+          scores: { ethics: -5, law: 0, judgment: -5, empathy: -3 }
+        },
+        {
+          label: '在群組開玩笑調侃',
+          result: '你在群組發了幾個梗圖調侃副校長。同學們一陣笑鬧，但其中一位認真的同學私訊你：「這件事其實很嚴肅，不是玩笑。」你意識到你的輕浮讓真正在意的人感到孤單。你的幽默感在這裡用錯了地方。',
+          scores: { ethics: -5, law: 0, judgment: -3, empathy: -5 }
+        },
+        {
+          label: '覺得爆料者太多事',
+          result: '你認為「誰沒有誇大過自己的履歷」，覺得爆料者是針對個人。你的態度讓認真討論的同學不再找你說話。幾個月後你發現，當你申請研究所需要推薦信時，那些曾經認真討論學倫的同學都已經有了更好的學術判斷力。',
+          scores: { ethics: -8, law: -3, judgment: -5, empathy: -5 }
+        }
+      ]
+    },
+    {
+      stage1: '觀察思考',
+      stage2: [
+        {
+          label: '仔細閱讀報導並查證',
+          result: '你花了兩個小時仔細閱讀整篇報導和相關文件，甚至去查了ITU和ETSI的公開資料。你從中學到了國際標準制定的基本知識，也理解了學術經歷查證的重要性。這些知識讓你在未來撰寫履歷時對「誠實」有了全新的認識。',
+          scores: { ethics: 8, law: 5, judgment: 12, empathy: 3 }
+        },
+        {
+          label: '和系上教授討論此案例',
+          result: '你帶著報導去找一位你信任的教授，請教他的看法。教授坦承這是一個學術倫理的經典案例，分析其中的權力不對等和制度困境。你們的討論持續了一個多小時，他最後說：「你有這樣的好奇心，將來一定會是個好學者。」',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 5 }
+        },
+        {
+          label: '在學生媒體撰寫分析報導',
+          result: '你為學生報寫了一篇分析報導，從高中生學習歷程造假到副校長經歷爭議，探討學術倫理中的雙重標準。文章在校內引起討論，學生會的學術部長主動聯繫你，希望合作舉辦學倫講座。你讓一個新聞事件變成校園對話的起點。',
+          scores: { ethics: 12, law: 8, judgment: 15, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '行動質疑',
+      stage2: [
+        {
+          label: '聯署要求副校長公開說明',
+          result: '你和幾個同學發起一份連署，要求副校長公開提供研究成果被國際標準納入的具體證據。連署在三天內募集到兩百個學生簽名。學生會將連署書送交校長室，校方承諾會在學倫會中進一步釐清。學生集體的聲音讓制度開始運轉。',
+          scores: { ethics: 18, law: 12, judgment: 15, empathy: 12 }
+        },
+        {
+          label: '提案建立學生參與學倫會機制',
+          result: '你向學生議會提案，建議在學校學術倫理委員會中加入學生觀察員席次，讓學生有機會參與學倫案件的討論與監督。提案通過後，校長室同意試辦一年。你為學生在校園治理中打開了一扇門。',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 15 }
+        },
+        {
+          label: '公開對比高中生與副校長案差別待遇',
+          result: '你寫了一篇對比分析，將一個月前被五所大學取消錄取的高中生案例與副校長案並列，提出「學術倫理是不是一種上寬下緊的選擇性執法」的尖銳問題。文章被轉載到校外平台，引起全國性討論。教育部官員公開回應將檢討學倫調查的統一標準。',
+          scores: { ethics: 20, law: 18, judgment: 18, empathy: 18 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台大副校長廖婉君遭爆長年聲稱研究成果納入ITU-T H.323 Annex-H國際通訊標準，但查無相關技術記錄。另聲稱被ETSI TiPHON收錄，實際上僅是在會議中分享成果。廖婉君否認指控並委託律師發表聲明，強調去年已由台大學術倫理委員會認定不構成違反學倫，將對爆料者採取法律行動。'
+});
+</script>
+</body>
+</html>

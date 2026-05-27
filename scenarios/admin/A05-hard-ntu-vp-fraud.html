@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A05 - 台大副校長經歷造假 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A05">
+  <header>
+    <span class="badge" id="scenario-id">A05</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+  <div class="news-sources" id="news-sources"></div>
+  <div id="scene-setting">
+    <p>學倫會會議室，厚重的木門隔絕了走廊上的議論聲。長橢圓桌旁坐滿委員，桌上放著一份已蓋上「不違反學倫」的調查報告——以及今天早上媒體刊出的全新指控證據。</p>
+  </div>
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">完整報導請見新聞連結。</p>
+    </div>
+  </div>
+  <div id="reflection-area" class="hidden"></div>
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A05',
+  role: 'admin',
+  difficulty: '進階',
+  newsSource: [
+    { name: '中時新聞網', url: 'https://www.chinatimes.com/realtimenews/20250625000936-260405' },
+    { name: '聯合新聞網', url: 'https://udn.com/news/story/6885/8830665' }
+  ],
+  setting: '學倫會會議室，厚重的木門隔絕了走廊上的議論聲。長橢圓桌旁坐滿委員，桌上放著一份已蓋上「不違反學倫」的調查報告——以及今天早上媒體刊出的全新指控證據。',
+  dialogues: [
+    { speaker: '旁白', text: '你是台大學術倫理委員會的執行秘書。今天早上媒體大幅報導副校長廖婉君的學術經歷造假指控，而你們委員會早在去年就已經做出「不違反學倫」的決議。現在事情重新浮上檯面。' },
+    { speaker: '主任委員', text: '媒體報導的證據你們都看到了。ITU文庫裡確實找不到廖副校長的技術紀錄，ETSI方面也確認她只是去開會。' },
+    { speaker: '委員A', text: '但我們去年調查時，她提供了一份國際標準組織現任副主席的聲明，表示她的研究有被採用。' },
+    { speaker: '委員B', text: '問題是⋯⋯那封信的出具人當時「已經退休」，根本不是任職期間的認定。而且當年標準委員會的主席和委員都說她沒有提出任何納入標準的技術。' },
+    { speaker: '主任委員', text: '另外，她說2000年就被告知Annex-H已定案。但我們從文庫調出當時的電郵，小組成員明明說「預計延至2001年完成」。這個時間點對不上。' },
+    { speaker: '委員A', text: '還有ETSI TiPHON那件事。校訊寫的是「研究成果被收錄」，她現在說是「去分享」。兩個說法完全不同。' },
+    { speaker: '委員B', text: '（低聲）而且⋯⋯她才剛獲得台灣傑出女科學家獎。如果我們去年的結論有問題，這個獎怎麼辦？' },
+    { speaker: '主任委員', text: '（嚴肅）客觀事實最重要。不管她是副校長還是學生，學倫會的職責就是根據證據做出判斷。現在有新的證據，我們必須面對。' },
+    { speaker: '旁白', text: '會議室陷入沈默。你看著桌上那疊厚厚的資料，知道接下來的決定將影響的不只是一個人，而是整個學術界的信任。' }
+  ],
+  choices: [
+    {
+      stage1: '維持原議',
+      stage2: [
+        {
+          label: '以「一事不再理」為由駁回',
+          result: '你主張委員會已經做出決議，不應因為媒體報導就重啟。但媒體持續追蹤，披露更多細節。教育部發文要求學校說明。社會輿論認為學校在包庇。委員會被貼上「行政護航」的標籤，公信力嚴重受損。',
+          scores: { ethics: -15, law: -10, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '限縮調查範圍，只處理新證據',
+          result: '你只針對媒體提出的ITU新證據進行補充調查，但刻意避開ETSI TiPHON的指控。這種選擇性調查被爆料者發現，反彈更大。教育部要求學倫會全面重新調查，你發現限縮處理反而讓事情更複雜。',
+          scores: { ethics: -10, law: -8, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '說服副校長自行辭職了事',
+          result: '你私下建議副校長「為維護學校聲譽」主動辭職。副校長同意了。雖然表面風波平息，但學術界批評台大學倫會「用辭職逃避真相調查」。制度失去了一次自我糾正的機會，學倫會的公信力一落千丈。',
+          scores: { ethics: -12, law: -8, judgment: -5, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '重啟調查',
+      stage2: [
+        {
+          label: '依新證據重啟正式調查',
+          result: '你引用學倫處理辦法中「發現新事實得重啟調查」的條款，正式提案重啟調查。委員會以七比四通過。新調查委員會加入三位校外專家，確保公正性。雖然程序耗時三個月，但每一步都站得住腳。',
+          scores: { ethics: 12, law: 15, judgment: 15, empathy: 5 }
+        },
+        {
+          label: '邀請外部專家參與擴大調查',
+          result: '你邀請IEEE和ITU的技術專家擔任顧問，協助解讀國際標準文件的歷史紀錄。外部專家提供了專業且中立的分析，確認指控屬實。最終報告客觀翔實，即使結論不利於副校長，也無人可以質疑程序。',
+          scores: { ethics: 18, law: 18, judgment: 18, empathy: 8 }
+        },
+        {
+          label: '同時啟動利益迴避審查',
+          result: '你意識到部分委員可能與副校長有人情關係，先行啟動利益迴避審查。三名委員主動迴避。這項前置程序雖然讓調查進度延後，但確保了後續結論的無可爭議。媒體對此給予高度評價。',
+          scores: { ethics: 15, law: 18, judgment: 15, empathy: 10 }
+        }
+      ]
+    },
+    {
+      stage1: '制度改革',
+      stage2: [
+        {
+          label: '建立外部委員主導的高階主管學倫案機制',
+          result: '你提案修訂學倫處理辦法，規定「副校長及以上層級主管涉案時，調查委員會應由全數校外專家組成」。校務會議通過此案，成為全台首創。你的制度設計確保了未來類似案件不會再受校內權力關係影響。',
+          scores: { ethics: 20, law: 20, judgment: 20, empathy: 12 }
+        },
+        {
+          label: '建立學術經歷公開查證平台',
+          result: '你與研發處合作建立一個「學術成果公開查證平台」，要求所有教師的國際標準貢獻、專利、論文等經歷均須附上官方證明文件。平台開放供校內外查閱。雖然行政負擔增加，但學術履歷的真實性因此大幅提升。',
+          scores: { ethics: 18, law: 18, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '將學倫案件審議過程全程記錄公開',
+          result: '你推動學倫會審議過程的「去識別化會議紀錄」公開上網，讓全校師生了解案件的審議邏輯與證據取捨。這項透明化措施雖然讓委員們感受到壓力，但也讓每一次審議都更加審慎。',
+          scores: { ethics: 20, law: 18, judgment: 18, empathy: 15 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '台大副校長廖婉君遭爆長年聲稱研究成果納入ITU-T H.323 Annex-H國際通訊標準，但查無相關技術記錄。另聲稱被ETSI TiPHON收錄，實際上僅是在會議中分享成果。廖婉君否認指控並委託律師發表聲明，強調去年已由台大學術倫理委員會認定不構成違反學倫，將對爆料者採取法律行動。'
+});
+</script>
+</body>
+</html>
