@@ -30,5 +30,8 @@ var SCENARIOS = [
   { id: 'A10', role: 'admin', difficulty: 'hard', title: '台中科大校長一稿兩投', file: 'scenarios/admin/A10-hard-dual-funding.html' },
   { id: 'S11', role: 'student', difficulty: 'medium', title: '勞動部高官博抄碩', file: 'scenarios/student/S11-medium-official-thesis.html' },
   { id: 'T11', role: 'teacher', difficulty: 'medium', title: '勞動部高官博抄碩', file: 'scenarios/teacher/T11-medium-official-thesis.html' },
-  { id: 'A11', role: 'admin', difficulty: 'medium', title: '勞動部高官博抄碩', file: 'scenarios/admin/A11-medium-official-thesis.html' }
+  { id: 'A11', role: 'admin', difficulty: 'medium', title: '勞動部高官博抄碩', file: 'scenarios/admin/A11-medium-official-thesis.html' },
+  { id: 'S12', role: 'student', difficulty: 'hard', title: '博士論文抄襲爭議', file: 'scenarios/student/S12-hard-thesis-plagiarism.html' },
+  { id: 'T12', role: 'teacher', difficulty: 'hard', title: '博士論文抄襲爭議', file: 'scenarios/teacher/T12-hard-thesis-plagiarism.html' },
+  { id: 'A12', role: 'admin', difficulty: 'hard', title: '博士論文抄襲爭議', file: 'scenarios/admin/A12-hard-thesis-plagiarism.html' }
 ];

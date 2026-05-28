@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A12 - 博士論文抄襲爭議 - 行政</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="A12">
+  <header>
+    <span class="badge" id="scenario-id">A12</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">行政</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+
+  <div class="news-sources" id="news-sources"></div>
+
+  <div id="scene-setting">
+    <p>週二上午，你的辦公桌上多了一份來自台灣的掛號信。</p>
+    <p>一封委任律師函，代表資策會請求辛辛那提大學針對該校畢業生論文涉及侵害著作權一事啟動調查。</p>
+    <p>隨附的比對報告清楚標示了兩篇期刊論文與博士論文之間的高度重疊段落。而這位畢業生——是你在大學的公開資料上列為「傑出校友」的那一位。</p>
+  </div>
+
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">
+        完整報導請見新聞連結。
+      </p>
+    </div>
+  </div>
+
+  <div id="reflection-area" class="hidden"></div>
+
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'A12',
+  role: 'admin',
+  difficulty: '進階',
+  newsSource: [
+    { name: 'Yahoo奇摩新聞', url: 'https://tw.news.yahoo.com/%E9%AB%98%E8%99%B9%E5%AE%89%E8%AB%96%E6%96%87%E6%8A%84%E8%A5%B2%E6%A1%88' },
+    { name: '今周刊', url: 'https://www.businesstoday.com.tw/' }
+  ],
+  setting: '週二上午，辦公桌上多了一份來自台灣的掛號信。一封委任律師函，代表資策會請求辛辛那提大學針對該校畢業生論文涉及侵害著作權一事啟動調查。隨附的比對報告清楚標示了兩篇期刊論文與博士論文之間的高度重疊段落。而這位畢業生——是在大學的公開資料上列為「傑出校友」的那一位。',
+  dialogues: [
+    { speaker: '法務主任', text: 'Dean，這份來自台灣的律師函您看了嗎？' },
+    { speaker: '你', text: '正在看。資策會要求我們調查一位畢業十年以上的博士生？' },
+    { speaker: '法務主任', text: '是的。他們的論點是：這位學生的博士論文重製了她在資策會發表的两篇期刊論文，重疊比例極高，而這些期刊論文的著作權屬於資策會。' },
+    { speaker: '你', text: '她不是我們列在官網上的傑出校友嗎？台灣新竹市的市長？' },
+    { speaker: '法務主任', text: '正是同一位。公關室剛打電話來，說台灣媒體已經在報導，記者也開始問我們有沒有要回應。' },
+    { speaker: '系主任', text: '問題是——她畢業時的論文規範和現在不一樣。當時我們沒有要求學生提交著作權授權聲明。如果現在回頭追究，可能有很多論文都有類似的灰色地帶。' },
+    { speaker: '法務主任', text: '灰色地帶不代表合法。資策會在台灣已經提起訴訟，如果我們完全不作任何回應，對學校的國際聲譽會有影響。' },
+    { speaker: '系主任', text: '但如果我們啟動調查，等於公開承認我們的審查制度有漏洞。而且她現在是政治人物，調查一定會被放大解讀。' },
+    { speaker: '公關主任', text: '我剛收到三通記者來電。他們想知道：辛辛那提大學會不會調查？標準是什麼？時效問題怎麼看？' },
+    { speaker: '你', text: '我需要想清楚——法律層面、公關層面、還有學術倫理層面。這三件事要一起處理。' }
+  ],
+  choices: [
+    {
+      stage1: '冷處理',
+      stage2: [
+        {
+          label: '以「畢業超過十年」為由不予調查',
+          result: '你回覆資策會律師函，表示校方學倫調查程序的追溯期限為畢業後五年，該案已逾時效。資策會對此表達遺憾。媒體報導「辛辛那提大學拒絕調查」，學術倫理學者批評此舉形同設置抄襲保固期。半年後另一所大學發生類似案例，媒體再次翻出你的決定，你的政策被形容為「讓論文抄襲在五年後自動合法」。',
+          scores: { ethics: -10, law: 0, judgment: -8, empathy: -8 }
+        },
+        {
+          label: '私下聯絡畢業生，請她自行處理',
+          result: '你透過非正式管道聯繫該畢業生，暗示學校不便介入她與資策會的糾紛，建議她自行與資策會和解。這封郵件後來被公開，外界批評學校「暗室操作」。畢業生方面則表示感受到校方試圖切割關係的壓力。你原本想保護學校的聲譽，結果適得其反。',
+          scores: { ethics: -8, law: -5, judgment: -5, empathy: -10 }
+        },
+        {
+          label: '以媒體關注為由暫緩回應',
+          result: '你決定「等風頭過去」。公關主任每天報告新聞熱度，你持續觀察但不行動。三週後新聞確實淡出了——但你很快發現，台灣的法院程序仍在進行。當資策會在一審敗訴後上訴二審，案件再次回到新聞焦點，而這一次記者直接問：「辛辛那提大學在這段期間做了什麼？」你沒有答案。',
+          scores: { ethics: -5, law: -5, judgment: -3, empathy: -5 }
+        }
+      ]
+    },
+    {
+      stage1: '標準程序',
+      stage2: [
+        {
+          label: '啟動正式學術倫理調查',
+          result: '你依法啟動校級學術倫理調查程序，組成三人調查委員會，包括一位外校專家。調查範圍限於論文本身的原創性與引用合規性，不涉及台灣方面的著作權爭議。委員會在三個月後提出報告：認定論文在引用已發表研究時未充分標註出處，違反學校學術誠信政策，建議撤銷該學位。報告送達畢業生時，她透過律師表示將提出上訴。程序進行了，但後果非常嚴重。',
+          scores: { ethics: 12, law: 15, judgment: 10, empathy: -5 }
+        },
+        {
+          label: '要求畢業生提交補充說明與授權文件',
+          result: '你給畢業生一個回應機會：在六十天內提交博士論文中使用資策會期刊內容的授權文件，或提出合理使用的法律論證。她在期限內提供了資策會當年的內部研究報告，證明她是該研究的原始作者。但授權文件始終無法取得——因為期刊論文發表時，著作權已依合約移轉給資策會。你據此做出結論：論文存在授權瑕疵，但非惡意抄襲。這個細緻的區分在學倫領域成為重要判例。',
+          scores: { ethics: 15, law: 12, judgment: 18, empathy: 10 }
+        },
+        {
+          label: '委託外部獨立機構進行第三方鑑定',
+          result: '為避免利益衝突指控，你委託美國大學協會（AAU）旗下的學術 integrity 機構進行第三方鑑定。鑑定報告在六週後出爐，結論是「論文內容與既有出版品高度重疊且未適當標註」。你將報告全文公開，並宣布啟動正式調查。雖然畢業生對第三方程序提出質疑，但多數學者認為你的做法是「目前為止最透明的處理方式」。',
+          scores: { ethics: 18, law: 15, judgment: 15, empathy: 8 }
+        }
+      ]
+    },
+    {
+      stage1: '制度改革',
+      stage2: [
+        {
+          label: '全面檢討論文著作權審查制度',
+          result: '你召集教務處、法務室與各學院代表，全面檢討現行博士論文審查制度。新的制度要求所有博士生在提交論文時必須一併繳交「既有研究成果使用授權清單」，並由指導教授簽署確認。你也建立了論文畢業後的抽查機制——每年隨機抽取5%的已通過論文進行比對。這項改革在大學聯盟會議上被分享，其他學校陸續跟進。',
+          scores: { ethics: 18, law: 18, judgment: 18, empathy: 12 }
+        },
+        {
+          label: '建立畢業後學倫案件處理指引',
+          result: '你意識到跨國學倫案件將越來越常見，於是主導制定《畢業校友學術誠信案件處理指引》，明確規定追溯時效、調查程序、證據標準與對外溝通策略。這份指引不僅處理了本案，也讓學校在面對未來的類似案件時不再手足無措。教育部門將你的指引轉發給其他大學參考。',
+          scores: { ethics: 15, law: 18, judgment: 20, empathy: 12 }
+        },
+        {
+          label: '推動國際學術倫理合作備忘錄',
+          result: '你的視野更遠——你聯繫了台灣、日本、韓國、新加坡的四所大學，共同簽署一份《跨國學術倫理合作備忘錄》，約定未來涉及跨國學倫案件時，各方將相互提供調查協助與資訊交換。資策會案成為這份備忘錄的催生者。在簽約儀式上，你說：「學術無國界，學術倫理也應該無國界。」',
+          scores: { ethics: 20, law: 20, judgment: 20, empathy: 18 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '辛辛那提大學未公開啟動對高虹安博士論文的調查程序。台灣方面的司法程序持續進行：一審台北地院以「超過告訴期」判公訴不受理；二審智慧財產及商業法院傳喚資策會前執行長作證後，認定告訴未逾期，撤銷原判決發回更審。民事部分高虹安被判賠償40萬元。本案引發學界對跨國學倫案件處理機制的廣泛討論，但辛辛那提大學始終未就此事公開發表調查結果。'
+});
+</script>
+</body>
+</html>

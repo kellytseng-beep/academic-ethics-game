@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S12 - 博士論文抄襲爭議 - 學生</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div id="app" data-scenario="S12">
+  <header>
+    <span class="badge" id="scenario-id">S12</span>
+    <span class="badge" id="difficulty">進階</span>
+    <span class="badge" id="role-badge">學生</span>
+    <span id="score-display"></span>
+    <a id="home-link" href="../../index.html" class="home-link">← 大廳</a>
+  </header>
+
+  <div class="news-sources" id="news-sources"></div>
+
+  <div id="scene-setting">
+    <p>深夜。研究室只剩下你一盞燈。</p>
+    <p>你的手機在桌上震個不停——螢幕上是連續跳出的新聞推播通知，全都是同一個標題。</p>
+    <p>你認得那張臉書截圖：一位旅美教授貼出你的博士論文比對結果，指出你的論文與你在資策會發表的两篇期刊論文高度重疊——一篇重製近八成，另一篇近三成。</p>
+  </div>
+
+  <div id="dialogue-box">
+    <p style="color:var(--text-light);font-size:0.9rem;">對話載入中⋯⋯</p>
+  </div>
+
+  <div id="choice-stage1" class="hidden"></div>
+  <div id="choice-stage2" class="hidden"></div>
+  <div id="result-area" class="hidden"></div>
+
+  <div id="real-world" class="hidden">
+    <div class="real-world-card">
+      <h3>📰 真實世界的後續</h3>
+      <p id="real-world-content"></p>
+      <p style="margin-top:12px;font-size:0.85rem;">
+        完整報導請見新聞連結。
+      </p>
+    </div>
+  </div>
+
+  <div id="reflection-area" class="hidden"></div>
+
+  <div id="next-area" class="hidden">
+    <a href="../../index.html" class="btn-primary">回到大廳</a>
+  </div>
+</div>
+
+<script src="../../game-engine.js"></script>
+<script>
+AEG.initScenario({
+  id: 'S12',
+  role: 'student',
+  difficulty: '進階',
+  newsSource: [
+    { name: 'Yahoo奇摩新聞', url: 'https://tw.news.yahoo.com/%E9%AB%98%E8%99%B9%E5%AE%89%E8%AB%96%E6%96%87%E6%8A%84%E8%A5%B2%E6%A1%88' },
+    { name: '今周刊', url: 'https://www.businesstoday.com.tw/' }
+  ],
+  setting: '深夜。研究室只剩下你一盞燈。手機震個不停，螢幕上是連續跳出的新聞推播通知，全都是同一個標題。你認得那張臉書截圖：一位旅美教授貼出你的博士論文比對結果，指出你的論文與你在資策會發表的兩篇期刊論文高度重疊——一篇重製近八成，另一篇近三成。',
+  dialogues: [
+    { speaker: '同事', text: '你看到新聞了嗎？XX教授在臉書上貼了你的論文比對⋯⋯他說你抄襲資策會的論文，底下一千多則留言。' },
+    { speaker: '同事', text: '公司群組也在傳。副處長剛剛發了一條「請相關同仁注意社會觀感」。' },
+    { speaker: '你', text: '⋯⋯那兩篇論文是我在資策會的時候寫的，也是我自己的研究。我只是放進論文裡當作背景文獻。' },
+    { speaker: '同事', text: '我知道是你的研究，問題是你論文上沒有標註「本文曾發表於資策會期刊」。版權在誰手上？' },
+    { speaker: '資深研究員', text: '小X，你那兩篇期刊論文是經濟部補助的計畫成果，著作權歸屬資策會。你把這些內容放進博士論文，有沒有取得授權？' },
+    { speaker: '你', text: '我⋯⋯我以為這是我自己寫的，應該沒問題。而且學校也沒說不可以。' },
+    { speaker: '資深研究員', text: '問題是現在被公開了。資策會法務已經在討論要怎麼處理。你要有心理準備。' },
+    { speaker: '同事', text: '還有記者打電話到公司來問了。你要回應嗎？' },
+    { speaker: '你', text: '我需要一點時間想清楚⋯⋯' }
+  ],
+  choices: [
+    {
+      stage1: '防衛反擊',
+      stage2: [
+        {
+          label: '公開聲明「這是我自己的研究，不算抄襲」',
+          result: '你透過個人臉書發布聲明，強調論文內容是你自己的研究成果，非抄襲他人。然而資策會隨即發出新聞稿，指出著作權歸屬該會，你的博士論文使用前並未取得授權。媒體將雙方說法並列，法律學者受訪表示「自己的著作不代表有權任意使用」。你的聲明被解讀為規避授權責任。',
+          scores: { ethics: -10, law: -12, judgment: -8, empathy: -5 }
+        },
+        {
+          label: '指控爆料者政治動機，模糊焦點',
+          result: '你質疑這位旅美教授為什麼在此時此刻爆料，暗示有政治操作。支持者開始在網路上為你辯護，但學術圈的反應卻很冷淡——一位大學教授公開回應：「學術倫理的討論不應該被政治標籤淹沒。重點是著作權是否被侵害，而不是誰爆的料。」你的策略反而讓更多人仔細審視你的論文。',
+          scores: { ethics: -15, law: -8, judgment: -12, empathy: -8 }
+        },
+        {
+          label: '不回應，由律師處理',
+          result: '你選擇不發表任何公開說明，一切交給律師。你的沉默在社交媒體上被解讀為默認。資策會正式提出告訴後，你失去話語主導權，只能在新聞中扮演被動的被告角色。各界開始自行拼湊你的論文與期刊論文的相似度，而你沒有在第一時間給出自己的版本。',
+          scores: { ethics: -5, law: -5, judgment: -8, empathy: -3 }
+        }
+      ]
+    },
+    {
+      stage1: '協商處理',
+      stage2: [
+        {
+          label: '私下聯繫資策會尋求和解',
+          result: '你透過管道聯繫資策會高層，表達願意協商解決。雙方代表見面後，你坦承當時未充分理解著作權歸屬的程序，希望取得補授權或和解。資策會內部對你的態度不一——有人認為應依法追究，也有人認為內部同仁可以協商。最終資策會同意在民事層面協商，但刑事告訴無法撤回。你贏得了對話的機會，但要付出代價。',
+          scores: { ethics: 5, law: 0, judgment: 8, empathy: 8 }
+        },
+        {
+          label: '主動向辛辛那提大學說明，請求指導教授協助',
+          result: '你寫了一封長信給你在美國的指導教授，坦承論文與期刊論文的重疊情況，並附上你在資策會發表的所有相關文件。教授審閱後表示：「重點不在重疊本身，而在你有沒有在論文中適當引用和標註。」他協助你向學校提交補充說明。辛辛那提大學要求你補交一份著作權授權聲明。過程雖然繁雜，但至少讓你有了一條明確的解決路徑。',
+          scores: { ethics: 10, law: 8, judgment: 12, empathy: 10 }
+        },
+        {
+          label: '委託學術專家進行第三方比對鑑定',
+          result: '你聘請一位獨立的學術倫理專家對你的論文進行第三方比對，取得一份客觀的鑑定報告。報告中誠實標示了重疊比例，但也指出你的論文在整體架構和分析上有獨立貢獻。這份報告成為後續協商的重要基礎。資策會法務看了報告後表示可以進入實質討論。然而訴訟程序仍然啟動了。',
+          scores: { ethics: 12, law: 10, judgment: 15, empathy: 5 }
+        }
+      ]
+    },
+    {
+      stage1: '坦然面對',
+      stage2: [
+        {
+          label: '發表公開道歉聲明，承認程序疏失',
+          result: '你透過律師發表正式聲明，坦承在博士論文使用資策會著作時未取得授權程序，為自己的疏忽向資策會及社會道歉，並表示願意承擔法律責任。記者會上，你沒有閃躲任何問題。你的道歉雖然無法阻止訴訟，但多數評論者肯定你的態度。一位法學教授在電視上說：「她做錯了程序，但她的應對讓人格外印象深刻。」',
+          scores: { ethics: 15, law: 8, judgment: 10, empathy: 12 }
+        },
+        {
+          label: '主動提出捐贈賠償金成立學術著作權基金',
+          result: '你不僅道歉，更主動提議：不論官司結果如何，你願意將資策會求償金額的同等款項捐出，成立「學術著作權教育基金」，用於推廣研究生學術倫理與著作權教育。資策會對此提議感到意外，社會輿論也開始轉向。訴訟繼續，但你的行動讓焦點從個人責任轉移到制度改善。',
+          scores: { ethics: 18, law: 10, judgment: 15, empathy: 15 }
+        },
+        {
+          label: '辭去公職，專心面對司法程序與學倫調查',
+          result: '你做了一個最艱難的決定：宣布暫停所有公職，以個人身分全心面對司法程序與三所學校的學倫調查。這項決定震撼了政壇，但也讓最嚴厲的批評者暫時收聲。你走進法庭的那一刻，不再是任何頭銜的持有人，只是一個需要為自己學術行為負責的研究者。旁聽席上的記者後來寫道：「至少她選擇不躲在權力後面。」',
+          scores: { ethics: 20, law: 15, judgment: 18, empathy: 18 }
+        }
+      ]
+    }
+  ],
+  realWorldOutcome: '新竹市長高虹安遭旅美教授翁達瑞（本名陳時奮）爆料，其辛辛那提大學博士論文涉嫌抄襲她在資策會發表的2篇期刊論文，重製比例分別達八成與三成。資策會於2023年10月提出刑事自訴。一審台北地院以「超過告訴期」判公訴不受理，資策會上訴後，二審智慧財產及商業法院傳喚前執行長卓政宏作證，認定告訴未逾期，撤銷原判決發回更審。另民事部分判高虹安賠償40萬元。全案刑事部分仍在審理中。'
+});
+</script>
+</body>
+</html>
